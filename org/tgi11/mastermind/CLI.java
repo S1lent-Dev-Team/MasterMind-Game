@@ -3,9 +3,9 @@ import java.util.Scanner;
 
 //Felix
 public class CLI {
-
+    Scanner s;
     public CLI(){
-        Scanner ans = new Scanner(System.in);
+        s = new Scanner(System.in);
     }
 
     public void abfrage(){
