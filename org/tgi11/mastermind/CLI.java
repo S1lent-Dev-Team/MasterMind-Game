@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class CLI {
 
     public CLI(){
-        Scanner ans = new Scanner(System.in);
+
     }
 
     public void abfrage(){
-
+        Scanner ans = new Scanner(System.in);
     }
 }
