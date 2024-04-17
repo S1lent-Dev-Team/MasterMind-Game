@@ -3,7 +3,7 @@ package org.tgi11.mastermind;
 public class Main {
 private Display d;
     public static void main(String[] args){
-		Steuerung steuerung = new Steuerung();
+		Steuerung strg = new Steuerung();
 		System.out.println("With GUI?");
 		System.out.println("Yes(1) No(0)");
 		Scanner s = new Scanner(System.in);
@@ -14,8 +14,8 @@ private Display d;
 			}
 		}
 		if(shouldgui){
-			d = new GUI(steuerung);
+			d = new GUI(strg);
     	}else{
-			d = new CLI(steuerung);
+			d = new CLI(strg);
 		}
 }
