@@ -8,9 +8,11 @@ public class Steuerung {
 				private Color[] answer;
     private Color[][] history = new Color[8][4];
 				private Solver solv;
+				private Display d;
 				private int guessesmade = 0;
 
-    public Steuerung() {
+    public Steuerung(Display d) {
+					this.d = d;
 					solv = new Solver();
     }
 				public getGuesscount(){
