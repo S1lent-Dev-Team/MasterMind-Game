@@ -5,19 +5,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Steuerung {
-    public final Color[] answer;
+    public Color[] answer;
     public Color[][] history = new Color[8][4];
+	private Solver solv;
 
-    public Steuerung(Color[] answer) {
-        this.answer = answer;
+    public Steuerung() {
+		solv = new Solver();
     }
     public Color[][] getHistory(){
         return null;
     }
+	public void setAnswer(Color[] answer){
+		if(this.answer == null){
+		this.answer = answer
+		}
+	}
 
-    public void start(){
-
+    public void start(boolean playerguessing){
+		solv.start(!playerguessing);
     }
+	public void newGame(){
+}
     public void guess(Color[] guess){
 
     }
