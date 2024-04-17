@@ -35,13 +35,17 @@ public class Steuerung {
 						solv.start(!playerguessing);
     }
 				
-    public boolean guess(Color[] guess){
+    public void guess(Color[] guess){
 						history[guessesmade] = guess;
 						guessesmade++;
-						if(guess == answer){
-								return true;
+						if(guessesmade = 8){
+								//loss
+								return;
 						}
-						return false;
+						if(guess == answer){
+								//won
+								return;
+						}
     }
 
 
