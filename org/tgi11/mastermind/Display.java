@@ -2,13 +2,13 @@ package org.tgi11.mastermind;
 
 
 public abstract class Display{
-	private Steuerung strg;
+	protected Steuerung strg;
+	protected boolean playerguessing = false;
 	public Display(Steuerung strg){
 		this.strg = strg;
 	}
 	public void start(){
 
-		strg.start(isPlayerGuessing());
+		strg.start(playerguessing);
 	}
-	protected abstract boolean isPlayerGuessing();
 }
