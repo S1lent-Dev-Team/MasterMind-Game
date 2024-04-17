@@ -62,7 +62,7 @@ public class Steuerung {
             }
         }
 
-        return count;
+        return count-countCorrectPositions(guess);
     }
 
     private int countCorrectPositions(Color[] guess) {
