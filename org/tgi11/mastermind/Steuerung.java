@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Steuerung {
-    public Color[] answer;
-    public Color[][] history = new Color[8][4];
+	private Color[] answer;
+    private Color[][] history = new Color[8][4];
 	private Solver solv;
+	private int guessesmade = 0;
 
     public Steuerung() {
 		solv = new Solver();
@@ -25,9 +26,16 @@ public class Steuerung {
 		solv.start(!playerguessing);
     }
 	public void newGame(){
-}
-    public void guess(Color[] guess){
-
+	answer = null;
+	history = new Color[8][4];
+	}
+    public boolean guess(Color[] guess){
+		history[guessesmade] = guess;
+		guessesmade++;
+		if(guess == answer){
+			return true;
+		}
+		return false;
     }
 
 
