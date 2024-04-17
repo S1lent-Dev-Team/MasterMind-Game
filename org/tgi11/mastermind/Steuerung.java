@@ -23,7 +23,7 @@ public class Steuerung {
     }
 				public void setAnswer(Color[] answer){
 						if(this.answer == null){
-						this.answer = answer
+						this.answer = answer;
 						}
 				}
 
