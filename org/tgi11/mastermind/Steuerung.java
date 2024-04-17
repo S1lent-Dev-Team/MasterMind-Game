@@ -13,13 +13,13 @@ public class Steuerung {
 
     public Steuerung(Display d) {
 					this.d = d;
-					solv = new Solver();
+					solv = new Solver(this);
     }
 				public getGuesscount(){
 						return guessesmade;
 				}
     public Color[][] getHistory(){
-        return null;
+        return history;
     }
 				public void setAnswer(Color[] answer){
 						if(this.answer == null){
@@ -28,12 +28,13 @@ public class Steuerung {
 				}
 
     public void start(boolean playerguessing){
-						solv.start(!playerguessing);
-    }
-				public void newGame(){
 						answer = null;
 						history = new Color[8][4];
-				}
+						guessmade = 0;
+						
+						solv.start(!playerguessing);
+    }
+				
     public boolean guess(Color[] guess){
 						history[guessesmade] = guess;
 						guessesmade++;
