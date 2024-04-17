@@ -2,7 +2,7 @@ package org.tgi11.mastermind;
 import java.util.Scanner;
 
 public class Main {
-private Display d;
+private static Display d;
     public static void main(String[] args) {
         Steuerung strg = new Steuerung(d);
         System.out.println("With GUI?");
@@ -10,7 +10,7 @@ private Display d;
         Scanner s = new Scanner(System.in);
         boolean shouldgui = false;
         if (s.hasNextInt()) {
-            if (s.getNextInt() == "1") {
+            if (s.nextInt() == 1) {
                 shouldgui = true;
             }
         }
@@ -19,5 +19,6 @@ private Display d;
         } else {
             d = new CLI(strg);
         }
+        d.start();
     }
 }
