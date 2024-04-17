@@ -5,6 +5,6 @@ public class Solver {
 	
 	public Solver(){
 	}
-	public void start(comguessing){
+	public void start(boolean comguessing){
 	}
 }
