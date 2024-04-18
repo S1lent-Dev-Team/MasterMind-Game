@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Steuerung {
-    private Color[] answer;
-    private Color[][] history = new Color[8][4];
+    private int[] answer;
+    private int[][] history = new int[8][6];
     private Solver solv;
     private Display d;
     private int guessesmade = 0;
@@ -18,15 +18,15 @@ public class Steuerung {
     public int getGuesscount(){
         return guessesmade;
     }
-    public Color[][] getHistory(){
+    public int[][] getHistory(){
         return history;
     }
-	public int[] correctPosAndCol(Color[] guess){
+	public int[] correctPosAndCol(int[] guess){
 
 		return null;
 
 	}
-    public void setAnswer(Color[] answer){
+    public void setAnswer(int[] answer){
         if(this.answer == null){
             this.answer = answer;
         }
@@ -34,14 +34,17 @@ public class Steuerung {
 
     public void start(boolean playerguessing){
         answer = null;
-        history = new Color[8][4];
+        history = new int[8][6];
         guessesmade = 0;
 						
         solv.start(!playerguessing);
     }
 				
-    public void guess(Color[] guess){
-        history[guessesmade] = guess;
+    public void guess(int[] guess){
+		int[] historysave = Arrays.copyOf(guess,6);
+		historysave[5] = countCorrectPositions(int[] guess);
+		historysave[6] = countCorrectColors(int[] guess);
+		history[guessesmade] = historysave;
         guessesmade++;
 		if(guess == answer){
             //won
@@ -51,6 +54,7 @@ public class Steuerung {
             //loss
             return;
         }
+		
     }
 
 
@@ -62,20 +66,20 @@ public class Steuerung {
 
 
 
-    private int countCorrectColors(Color[] guess) {
+    private int countCorrectColors(int[] guess) {
         int count = 0;
-        ArrayList<Color> secretList = (ArrayList<Color>) Arrays.asList(answer);
-        for (Color color : guess) {
+        List<Color> secretList = Arrays.asList(answer);
+        for (int color : guess) {
             if (secretList.contains(color)) {
                 count++;
-                secretList.remove(String.valueOf(color));
+                secretList.remove(color);
             }
         }
 
         return count-countCorrectPositions(guess);
     }
 
-    private int countCorrectPositions(Color[] guess) {
+    private int countCorrectPositions(int[] guess) {
         int count = 0;
         for (int i = 0; i < 8; i++) {
             if (answer[i] == guess[i]) {
