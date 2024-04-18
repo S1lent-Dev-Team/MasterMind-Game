@@ -42,8 +42,8 @@ public class Steuerung {
 				
     public void guess(int[] guess){
 		int[] historysave = Arrays.copyOf(guess,6);
-		historysave[5] = countCorrectPositions(int[] guess);
-		historysave[6] = countCorrectColors(int[] guess);
+		historysave[5] = countCorrectPositions(guess);
+		historysave[6] = countCorrectColors(guess);
 		history[guessesmade] = historysave;
         guessesmade++;
 		if(guess == answer){
@@ -68,12 +68,15 @@ public class Steuerung {
 
     private int countCorrectColors(int[] guess) {
         int count = 0;
-        List<Color> secretList = Arrays.asList(answer);
-        for (int color : guess) {
-            if (secretList.contains(color)) {
-                count++;
-                secretList.remove(color);
-            }
+        int[] answercopy = Arrays.copyOf(answer);
+        for (int guesscolor : guess) {
+			for(int answercolor : answercopy){		
+            	if (guesscolor == answercolor) {
+					count++;
+					answercolor = -1;
+					break;
+				}
+			}
         }
 
         return count-countCorrectPositions(guess);
@@ -81,7 +84,7 @@ public class Steuerung {
 
     private int countCorrectPositions(int[] guess) {
         int count = 0;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < guess.length; i++) {
             if (answer[i] == guess[i]) {
                 count++;
             }
