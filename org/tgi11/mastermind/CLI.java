@@ -12,9 +12,9 @@ public class CLI extends Display {
 
     public void start() {
         Scanner s = new Scanner(System.in);
-        System.out.println("");
+        System.out.println(" ");
         System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2"); //Entscheidung zwischen Solver und selber raten
-        if (s.hasNextInt()) {
+        while (s.hasNextInt()) {
             int game = s.nextInt();
             switch (game) {
                 case 1:
