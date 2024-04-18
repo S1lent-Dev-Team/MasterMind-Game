@@ -70,10 +70,10 @@ public class Steuerung {
         int count = 0;
         int[] answercopy = Arrays.copyOf(answer);
         for (int guesscolor : guess) {
-			for(int answercolor : answercopy){		
-            	if (guesscolor == answercolor) {
+			for(int i = 0;i < answercopy.length;i++){		
+            	if (guesscolor == answercopy[i]) {
 					count++;
-					answercolor = -1;
+					answercopy[i] = -1;
 					break;
 				}
 			}
