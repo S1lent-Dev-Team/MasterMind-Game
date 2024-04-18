@@ -41,7 +41,7 @@ public class Steuerung {
     }
 				
     public void guess(int[] guess){
-		int[] historysave = Arrays.copyOf(guess,6);
+		int[] historysave = guess.clone();
 		historysave[5] = countCorrectPositions(guess);
 		historysave[6] = countCorrectColors(guess);
 		history[guessesmade] = historysave;
@@ -68,7 +68,7 @@ public class Steuerung {
 
     private int countCorrectColors(int[] guess) {
         int count = 0;
-        int[] answercopy = Arrays.copyOf(answer);
+        int[] answercopy = guess.clone();
         for (int guesscolor : guess) {
 			for(int i = 0;i < answercopy.length;i++){		
             	if (guesscolor == answercopy[i]) {
