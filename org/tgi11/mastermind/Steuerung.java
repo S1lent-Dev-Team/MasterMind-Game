@@ -21,6 +21,11 @@ public class Steuerung {
     public Color[][] getHistory(){
         return history;
     }
+	public int[] correctPosAndCol(Color[] guess){
+
+		return null;
+
+	}
     public void setAnswer(Color[] answer){
         if(this.answer == null){
             this.answer = answer;
@@ -38,12 +43,12 @@ public class Steuerung {
     public void guess(Color[] guess){
         history[guessesmade] = guess;
         guessesmade++;
-        if(guessesmade == 8){
-            //loss
+		if(guess == answer){
+            //won
             return;
         }
-        if(guess == answer){
-            //won
+        if(guessesmade == 8){
+            //loss
             return;
         }
     }
