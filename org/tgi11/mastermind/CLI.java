@@ -13,22 +13,26 @@ public class CLI extends Display {
     public void start() {
         Scanner s = new Scanner(System.in);
         System.out.println(" ");
-        System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2"); //Entscheidung zwischen Solver und selber raten
-        while (s.hasNextInt()) {
-            int game = s.nextInt();
-            switch (game) {
-                case 1:
+        System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2)"); //Entscheidung zwischen Solver und selber raten
+        while (true) {
+            int game = -1;
+            if(s.hasNextInt()) {
+                game = s.nextInt();
+            }else{
+                s.next();
+            }
+                if(game == 1) {
                     System.out.println("Der Computer rät");
                     playerguessing = false;
                     break;
-                case 2:
+                } else if (game == 2) {
                     System.out.println("Sie raten");
-                    playerguessing =true;
+                    playerguessing = true;
                     break;
 
-                default:
-                    System.out.println("Ungültige Eingabe");
-            }
+                }else{
+                        System.out.println("Ungültige Eingabe");
+                }
 
         }
 
