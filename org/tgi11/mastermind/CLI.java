@@ -3,15 +3,15 @@ import java.util.Scanner;
 
 //Felix
 public class CLI extends Display {
-
+Scanner s;
 
     public CLI(Steuerung strg) {
         super(strg);
+        s=new Scanner(System.in);
     }
 
 
     public void start() {
-        Scanner s = new Scanner(System.in);
         System.out.println(" ");
         System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2)"); //Entscheidung zwischen Solver und selber raten
         while (true) {
@@ -34,6 +34,15 @@ public class CLI extends Display {
                         System.out.println("Ungültige Eingabe");
                 }
 
+        }
+        while (!playerguessing){
+            //ask for the code with numbers 1-8
+            //send code to strg with strg.setAnswer(); and then break;
+        }
+        strg.start(playerguessing);
+        if(playerguessing){
+            //player guessing process. maybe change if to while if needed;
+            //use strg.guess(); for a guess;
         }
 
 
