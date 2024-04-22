@@ -23,6 +23,12 @@ public class Steuerung {
     public int[][] getHistory(){
         return history;
     }
+	public int[] getLastGuess(){
+		if(guessesmade = 0){
+			return null;
+		}
+		return history[guessesmade -1];
+	}
     public void setAnswer(int[] answer){
         if(this.answer == null){
             this.answer = answer;
@@ -48,11 +54,12 @@ public class Steuerung {
             running = false;
             return;
         }
-        if(guessesmade == 8){
+        else if(guessesmade == 8){
             //loss
             running = false;
             return;
         }
+		d.draw();
 		
     }
 
