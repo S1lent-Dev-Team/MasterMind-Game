@@ -22,7 +22,7 @@ Scanner s;
                 s.next();
             }
                 if(game == 1) {
-                    System.out.println("Der Computer rät");
+                    System.out.println("Der Computer raet");
                     playerguessing = false;
                     break;
                 } else if (game == 2) {
@@ -31,21 +31,38 @@ Scanner s;
                     break;
 
                 }else{
-                        System.out.println("Ungültige Eingabe");
+                        System.out.println("Ungueltige Eingabe");
                 }
 
         }
+
+        System.out.println(" ");
+        System.out.println("Bitte waehlen sie Ihren Code: ");
         while (!playerguessing){
-            //ask for the code with numbers 1-8
-            //send code to strg with strg.setAnswer(); and then break;
+            if(s.hasNextInt()){
+                int t;
+                t = s.nextInt();
+            } else {
+                System.out.println("Ungueltige Eingabe.");
+                s.next();
+            }
+
+
+
+
+            //TODO:ask for the code with numbers 1-8
+            //TODO:send code to strg with strg.setAnswer(); and then break;
         }
         strg.start(playerguessing);
         if(playerguessing){
-            //player guessing process. maybe change if to while if needed;
-            //use strg.guess(); for a guess;
+            //TODO:player guessing process. maybe change if to while if needed;
+            //TODO:use strg.guess(); for a guess;
         }
 
+    }
 
-        super.start();
+    @Override
+    public void draw() {
+        strg.getLatestGuess();
     }
 }
