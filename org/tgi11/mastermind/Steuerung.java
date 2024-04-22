@@ -81,18 +81,4 @@ public class Steuerung {
         }
         return count;
     }
-
-    public int[] correctPosAndCol(int[] guess){
-        int[] result = new int[2];
-
-        result[0] = countCorrectPositions(guess);
-
-        result[1] = countCorrectColors(guess);
-
-        return result;
-    }
-
-    public boolean isRunning() {
-        return isRunning;
-    }
 }
