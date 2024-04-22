@@ -54,10 +54,13 @@ Scanner s;
             //TODO:send code to strg with strg.setAnswer(); and then break;
         }
         strg.start(playerguessing);
+		while(strg.isRunning){
+		//gameloop
         if(playerguessing){
             //TODO:player guessing process. maybe change if to while if needed;
             //TODO:use strg.guess(); for a guess;
         }
+	}
 
     }
 
@@ -65,4 +68,5 @@ Scanner s;
     public void draw() {
         strg.getLatestGuess();
     }
+	
 }
