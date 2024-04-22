@@ -7,8 +7,6 @@ public abstract class Display{
 	public Display(Steuerung strg){
 		this.strg = strg;
 	}
-	public void start(){
-
-		strg.start(playerguessing);
-	}
+	public abstract void start();
+	public abstract void draw();
 }
