@@ -7,7 +7,7 @@ import java.util.Arrays;
 // Jonas(Der E-chte)
 public class Steuerung {
     private int[] answer;
-    private boolean isRunning = false;
+    private boolean running = false;
     private int[][] history = new int[8][6];
     private Solver solv;
     private Display d;
@@ -33,7 +33,7 @@ public class Steuerung {
         answer = null;
         history = new int[8][6];
         guessesmade = 0;
-		isRunning = true;
+		running = true;
         solv.start(!playerguessing);
     }
 				
@@ -45,12 +45,12 @@ public class Steuerung {
         guessesmade++;
 		if(guess == answer){
             //won
-            isRunning = false;
+            running = false;
             return;
         }
         if(guessesmade == 8){
             //loss
-            isRunning = false;
+            running = false;
             return;
         }
 		
@@ -81,4 +81,7 @@ public class Steuerung {
         }
         return count;
     }
+	isRunning(){
+		return running;
+	}
 }
