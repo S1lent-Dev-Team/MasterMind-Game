@@ -4,8 +4,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// Jonas(Der E-chte)
 public class Steuerung {
     private int[] answer;
+    private boolean isRunning = false;
     private int[][] history = new int[8][6];
     private Solver solv;
     private Display d;
@@ -21,11 +23,6 @@ public class Steuerung {
     public int[][] getHistory(){
         return history;
     }
-	public int[] correctPosAndCol(int[] guess){
-
-		return null;
-
-	}
     public void setAnswer(int[] answer){
         if(this.answer == null){
             this.answer = answer;
@@ -36,7 +33,7 @@ public class Steuerung {
         answer = null;
         history = new int[8][6];
         guessesmade = 0;
-						
+		isRunning = true;
         solv.start(!playerguessing);
     }
 				
@@ -48,23 +45,16 @@ public class Steuerung {
         guessesmade++;
 		if(guess == answer){
             //won
+            isRunning = false;
             return;
         }
         if(guessesmade == 8){
             //loss
+            isRunning = false;
             return;
         }
 		
     }
-
-
-
-
-
-
-
-
-
 
     private int countCorrectColors(int[] guess) {
         int count = 0;
@@ -90,5 +80,19 @@ public class Steuerung {
             }
         }
         return count;
+    }
+
+    public int[] correctPosAndCol(int[] guess){
+        int[] result = new int[2];
+
+        result[0] = countCorrectPositions(guess);
+
+        result[1] = countCorrectColors(guess);
+
+        return result;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
     }
 }
