@@ -23,7 +23,7 @@ public class Steuerung {
     public int[][] getHistory(){
         return history;
     }
-	public int[] getLastGuess(){
+	public int[] getLatestGuess(){
 		if(guessesmade = 0){
 			return null;
 		}
