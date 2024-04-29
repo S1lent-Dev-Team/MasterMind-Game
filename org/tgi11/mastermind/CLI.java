@@ -13,7 +13,7 @@ Scanner s;
 
     public void start() {
         System.out.println(" ");
-        System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2)"); //Entscheidung zwischen Solver und selber raten
+        System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2)");
         while (true) {
             int game = -1;
             if(s.hasNextInt()) {
@@ -31,7 +31,7 @@ Scanner s;
                     break;
 
                 }else{
-                        System.out.println("Ungueltige Eingabe");
+                        System.out.println("Illegal Arguments");
                 }
 
         }
@@ -43,7 +43,7 @@ Scanner s;
                 int t;
                 t = s.nextInt();
             } else {
-                System.out.println("Ungueltige Eingabe.");
+                System.out.println("Illegal Arguments");
                 s.next();
             }
 
