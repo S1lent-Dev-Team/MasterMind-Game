@@ -12,7 +12,7 @@ public class GUI extends Display{
 
 	@Override
 	public void start() {
-		Frame frame = new Frame("Mastermind");
+		Frame frame = new Frame();
 	}
 
 	@Override

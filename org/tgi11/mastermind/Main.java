@@ -24,7 +24,7 @@ private static Display d;
                 d = new CLI(strg);
                 break;
             }else{
-                System.out.println("\033[H\033[2J");
+                System.out.print("\u000C");
                 System.out.println("Ungültige Eingabe");
             }
 

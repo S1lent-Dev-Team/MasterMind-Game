@@ -41,8 +41,8 @@ public class Steuerung {
 				
     public void guess(int[] guess){
 		int[] historysave = guess.clone();
-		historysave[5] = countCorrectPositions(guess);
-		historysave[6] = countCorrectColors(guess);
+		historysave[4] = countCorrectPositions(guess);
+		historysave[5] = countCorrectColors(guess);
 		history[guessesmade] = historysave;
         guessesmade++;
 		if(guess == answer){
