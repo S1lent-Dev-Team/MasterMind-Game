@@ -37,7 +37,7 @@ Scanner s;
         }
 
         System.out.println(" ");
-        System.out.println("Bitte waehlen sie Ihren Code: ");
+        System.out.println("Bitte waehlen sie Ihren Code: (ABCD)");
         while (!playerguessing){
             if(s.hasNextInt()){
                 int t;
@@ -54,7 +54,7 @@ Scanner s;
             //TODO:send code to strg with strg.setAnswer(); and then break;
         }
         strg.start(playerguessing);
-		while(strg.isRunning){
+		while(strg.isRunning()){
 		//gameloop
         if(playerguessing){
             //TODO:player guessing process. maybe change if to while if needed;
@@ -67,6 +67,9 @@ Scanner s;
     @Override
     public void draw() {
         strg.getLatestGuess();
+    }
+    public void drawArray(){
+
     }
 	
 }

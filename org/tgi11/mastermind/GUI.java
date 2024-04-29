@@ -9,7 +9,11 @@ public class GUI extends Display{
 	public void start() {
 
 
-
-		super.start();
 	}
+
+	@Override
+	public void draw() {
+
+	}
+
 }
