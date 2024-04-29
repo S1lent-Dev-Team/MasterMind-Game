@@ -11,7 +11,7 @@ public class Frame extends JFrame implements ActionListener {
 
     public Frame(){
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Game");
+        setTitle("MasterMind");
         final JFrame theFrame = this;
         setMaximumSize(Toolkit.getDefaultToolkit().getScreenSize());
         setMinimumSize(new Dimension(100,100));
