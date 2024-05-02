@@ -1,9 +1,5 @@
 package org.tgi11.mastermind;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 // Jonas(Der E-chte)
 public class Steuerung {
     private int[] answer;
@@ -24,7 +20,7 @@ public class Steuerung {
         return history;
     }
 	public int[] getLatestGuess(){
-		if(guessesmade = 0){
+		if(guessesmade == 0){
 			return null;
 		}
 		return history[guessesmade -1];
@@ -45,8 +41,8 @@ public class Steuerung {
 				
     public void guess(int[] guess){
 		int[] historysave = guess.clone();
-		historysave[5] = countCorrectPositions(guess);
-		historysave[6] = countCorrectColors(guess);
+		historysave[4] = countCorrectPositions(guess);
+		historysave[5] = countCorrectColors(guess);
 		history[guessesmade] = historysave;
         guessesmade++;
 		if(guess == answer){
@@ -88,7 +84,7 @@ public class Steuerung {
         }
         return count;
     }
-	isRunning(){
+	public boolean isRunning(){
 		return running;
 	}
 }

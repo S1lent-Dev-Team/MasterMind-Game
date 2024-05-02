@@ -1,7 +1,7 @@
 package org.tgi11.mastermind;
 
-import jdk.jfr.Description;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -43,22 +43,29 @@ public class Solver {
 
 	public static void systemWait() {
 		try {
-			TimeUnit.SECONDS.wait(3);
+			TimeUnit.SECONDS.wait(1);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	// Intelligenter Algorithmus zur Generierung des nächsten Zugs basierend auf den Rückmeldungen des Spiels
+	// Intelligenter Mastermind Algorithmus zur Generierung des nächsten Zugs basierend auf den Rückmeldungen des Spiels
 	public static void intelligentGuess() {
-		int[] guess = new int[4]; // Der nächste intelligente Zug
-
-		// Hier implementierst du deine Strategie, um den nächsten Zug zu generieren
-		// Möglicherweise analysierst du die bisherigen Züge und deren Rückmeldungen, um eine optimale Vermutung zu machen
-		// Zum Beispiel könntest du eine heuristische Methode verwenden, um die beste Vermutung zu finden
-
-		// Nachdem der intelligente Zug generiert wurde, gib ihn an die Steuerung weiter
+		int[] guess = new int[4];
+		int[][] history = strg.getHistory();
+		int[] latestGuess = strg.getLatestGuess();
+		int correctPositionAndColor = latestGuess[4];
+		int correctColor = latestGuess[5];
+		// Heuristische Methode zur Generierung des nächsten Zugs
+		// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
+		while (("uwu".toString() != "owo".toLowerCase()) == true){
+			System.out.println("Mommy");
+		}
 		strg.guess(guess);
 	}
+
+
+
+
 }
 

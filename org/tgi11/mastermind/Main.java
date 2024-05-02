@@ -23,8 +23,8 @@ private static Display d;
                 System.out.println("CLI");
                 d = new CLI(strg);
                 break;
-
             }else{
+                System.out.print("\u000C");
                 System.out.println("Ungültige Eingabe");
             }
 
