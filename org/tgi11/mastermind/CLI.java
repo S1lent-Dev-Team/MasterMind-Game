@@ -38,9 +38,10 @@ public class CLI extends Display {
 
         }
 
-        System.out.println(" ");
-        System.out.println("Bitte waehlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
+
         if(!playerguessing) {
+            System.out.println(" ");
+            System.out.println("Bitte waehlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
             for (int i = 0; i < temp.length; i++) {
                 while (!playerguessing) {
                     if (s.hasNextInt()) {
@@ -90,7 +91,9 @@ public class CLI extends Display {
 
     @Override
     public void draw() {
+        System.out.print("\u000C");
         strg.getLatestGuess();
+
     }
 
     public void drawArray() {
