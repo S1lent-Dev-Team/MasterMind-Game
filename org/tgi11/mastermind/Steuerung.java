@@ -1,5 +1,7 @@
 package org.tgi11.mastermind;
 
+import java.util.Arrays;
+
 // Jonas(Der E-chte)
 public class Steuerung {
     private int[] answer;
@@ -9,8 +11,7 @@ public class Steuerung {
     private Display d;
     private int guessesmade = 0;
 
-    public Steuerung(Display d) {
-        this.d = d;
+    public Steuerung() {
         solv = new Solver(this);
     }
     public int getGuesscount(){
@@ -31,7 +32,8 @@ public class Steuerung {
         }
     }
 
-    public void start(boolean playerguessing){
+    public void start(boolean playerguessing,Display d){
+        this.d = d;
         answer = null;
         history = new int[8][6];
         guessesmade = 0;
@@ -40,7 +42,7 @@ public class Steuerung {
     }
 				
     public void guess(int[] guess){
-		int[] historysave = guess.clone();
+		int[] historysave = Arrays.copyOf(guess,6);
 		historysave[4] = countCorrectPositions(guess);
 		historysave[5] = countCorrectColors(guess);
 		history[guessesmade] = historysave;

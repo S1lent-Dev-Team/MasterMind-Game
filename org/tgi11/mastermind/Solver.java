@@ -15,7 +15,7 @@ public class Solver {
 	}
 
 	public void start(boolean comguessing) {
-		if (!comguessing) {
+		if (comguessing) {
 			randomGuess();
 			while (strg.isRunning()){
 				systemWait();

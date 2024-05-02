@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
 private static Display d;
     public static void main(String[] args) {
-        Steuerung strg = new Steuerung(d);
+        Steuerung strg = new Steuerung();
         System.out.println("With GUI?");
         System.out.println("Yes(1) No(0)");
         Scanner s = new Scanner(System.in);

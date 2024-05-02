@@ -61,21 +61,26 @@ public class CLI extends Display {
 
 
 
-        strg.start(playerguessing);
+        strg.start(playerguessing,this);
         while(strg.isRunning()){
             //game loop
             System.out.println(" ");
             System.out.println("Nennen Sie einen code zum Raten (Zahlen zwischen 1 und 8): ");
             if(playerguessing){
                 for(int i = 0; i < guess.length;i++){
-                    if(s.hasNextInt()) {
-                        int g = s.nextInt();
-                        if(g >= 1 && g <= 8) {
-                            guess[i] = g;
+                    while (true) {
+                        if (s.hasNextInt()) {
+                            int g = s.nextInt();
+                            if (g >= 1 && g <= 8) {
+                                guess[i] = g;
+                                break;
+                            }else{
+                                System.out.println("Illegal Arguments");
+                            }
+                        } else {
+                            System.out.println("Illegal Arguments");
+                            s.next();
                         }
-                    } else {
-                        System.out.println("Illegal Arguments");
-                        s.next();
                     }
                 }
             }
