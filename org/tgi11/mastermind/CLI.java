@@ -85,7 +85,9 @@ public class CLI extends Display {
 
     @Override
     public void draw() {
+        System.out.print("\u000C");
         strg.getLatestGuess();
+
     }
 
     public void drawArray() {
