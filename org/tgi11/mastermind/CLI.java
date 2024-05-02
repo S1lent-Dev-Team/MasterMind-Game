@@ -4,6 +4,7 @@ import java.util.Scanner;
 //Felix
 public class CLI extends Display {
 Scanner s;
+    private int[] temp = new int[4];
 
     public CLI(Steuerung strg) {
         super(strg);
@@ -37,26 +38,37 @@ Scanner s;
         }
 
         System.out.println(" ");
-        System.out.println("Bitte waehlen sie Ihren Code: (ABCD)");
-        while (!playerguessing){
-            if(s.hasNextInt()){
-                int t;
-                t = s.nextInt();
-            } else {
-                System.out.println("Illegal Arguments");
-                s.next();
+        System.out.println("Bitte waehlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
+    if(!playerguessing) {
+        for (int i = 0; i < temp.length; i++) {
+            while (!playerguessing) {
+                if (s.hasNextInt()) {
+                    int t;
+                    t = s.nextInt();
+                    if (t >= 1 && t <= 8) {
+                        temp[i] = t;
+                    }
+                } else {
+                    System.out.println("Illegal Arguments");
+                    s.next();
+                }
+
+                //TODO:ask for the code with numbers 1-8
+                //TODO:send code to strg with strg.setAnswer(); and then break;
             }
-
-
-
-
-            //TODO:ask for the code with numbers 1-8
-            //TODO:send code to strg with strg.setAnswer(); and then break;
         }
-        strg.start(playerguessing);
-		while(strg.isRunning()){
+        strg.setAnswer(temp);
+    }
+
+
+
+
+    strg.start(playerguessing);
+    while(strg.isRunning()){
 		//gameloop
         if(playerguessing){
+
+
             //TODO:player guessing process. maybe change if to while if needed;
             //TODO:use strg.guess(); for a guess;
         }
