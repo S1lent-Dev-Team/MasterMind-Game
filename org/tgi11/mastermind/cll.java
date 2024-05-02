@@ -2,12 +2,12 @@ package org.tgi11.mastermind;
 import java.util.Scanner;
 
 //Felix
-public class CLI extends Display {
+public class cll extends Display {
     Scanner s;
     private int[] temp = new int[4];
     private int[] guess = new int[4];
 
-    public CLI(Steuerung strg) {
+    public cll(Steuerung strg) {
         super(strg);
         s=new Scanner(System.in);
     }
