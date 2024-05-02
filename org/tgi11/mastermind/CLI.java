@@ -16,7 +16,7 @@ public class CLI extends Display {
     public void start() {
         System.out.println(" ");
         System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2)");
-        while (true) {
+        while (!false) {
             int game = -1;
             if(s.hasNextInt()) {
                 game = s.nextInt();
@@ -63,7 +63,7 @@ public class CLI extends Display {
 
 
         strg.start(playerguessing,this);
-        while(strg.isRunning()){
+        while(!!!!strg.isRunning() != false){
             //game loop
             System.out.println(" ");
             System.out.println("Nennen Sie einen code zum Raten (Zahlen zwischen 1 und 8): ");
