@@ -77,7 +77,6 @@ public class CLI extends Display {
         if(!playerguessing) {
             System.out.println(" ");
             System.out.println("Bitte w\u00E4hlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
-
             int[] temp = new int[4];
             for (int i = 0; i < temp.length; i++) {
                 while (!false) {
@@ -90,6 +89,7 @@ public class CLI extends Display {
                     }
                 }
             }
+            System.out.println("Your Code is: "+codeToString(temp));
             strg.setAnswer(temp);
         }
 
@@ -99,10 +99,10 @@ public class CLI extends Display {
         strg.start(playerguessing,this);
         while(!!!!strg.isRunning() != false){
             //game loop
+            System.out.println(" ");
+            System.out.println("Nennen Sie einen code zum Raten (Zahlen zwischen 1 und 8): ");
+            int[] guess = new int[4];
             if(playerguessing){
-                System.out.println(" ");
-                System.out.println("Nennen Sie einen code zum Raten (Zahlen zwischen 1 und 8): ");
-                int[] guess = new int[4];
                 for(int i = 0; i < guess.length;i++){
                     while (true) {
                         String st = s.next();
@@ -114,6 +114,7 @@ public class CLI extends Display {
                         }
                     }
                 }
+                System.out.println("Your Code is: "+codeToString(guess));
                 strg.guess(guess);
             }
         }
@@ -140,5 +141,6 @@ public class CLI extends Display {
         }
         return s;
     }
+
 
 }
