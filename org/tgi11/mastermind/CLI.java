@@ -54,6 +54,7 @@ public class CLI extends Display {
         if(!playerguessing) {
             System.out.println(" ");
             System.out.println("Bitte w\u00E4hlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
+
             int[] temp = new int[4];
             for (int i = 0; i < temp.length; i++) {
                 while (!false) {
@@ -81,17 +82,12 @@ public class CLI extends Display {
                 int[] guess = new int[4];
                 for(int i = 0; i < guess.length;i++){
                     while (true) {
-                        if (s.hasNextInt()) {
-                            int g = s.nextInt();
-                            if (g >= 1 && g <= 8) {
-                                guess[i] = g;
-                                break;
-                            }else{
-                                System.out.println("Illegal Arguments");
-                            }
+                        String st = s.next();
+                        if(translator.containsKey(st.toLowerCase())){
+                            guess[i] = translator.get(st);
+                            break;
                         } else {
                             System.out.println("Illegal Arguments");
-                            s.next();
                         }
                     }
                 }
