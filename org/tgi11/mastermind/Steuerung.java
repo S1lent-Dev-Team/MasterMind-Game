@@ -11,6 +11,7 @@ public class Steuerung {
     private Solver solv;
     private Display d;
     private int guessesmade = 0;
+    private boolean playerguessing;
 
     public Steuerung() {
         solv = new Solver(this);
@@ -35,6 +36,7 @@ public class Steuerung {
 
     public void start(boolean playerguessing,Display d){
         this.d = d;
+        this.playerguessing = playerguessing;
         history = new int[8][6];
         gamestate = 0;
         guessesmade = 0;
@@ -52,13 +54,21 @@ public class Steuerung {
 		if(historysave[4] == 4){
             //won
             running = false;
-            gamestate = 1;
+            if(playerguessing){
+                gamestate = 1;
+            }else{
+                gamestate = -1;
+            }
             return;
         }
         else if(guessesmade == 8){
             //loss
             running = false;
-            gamestate = -1;
+            if(playerguessing){
+                gamestate = -1;
+            }else{
+                gamestate = 1;
+            }
             return;
         }
 
