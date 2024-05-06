@@ -129,10 +129,6 @@ public class CLI extends Display {
 
     }
 
-    public void drawArray() {
-
-    }
-
     public String codeToString(int[] code){
         String s = "";
         for (int i:code) {
