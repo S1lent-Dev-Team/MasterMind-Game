@@ -24,8 +24,7 @@ private static Display d;
                 d = new CLI(strg);
                 break;
             }else{
-                System.out.print("\u000C");
-                System.out.println("Ungültige Eingabe");
+                System.out.println("Illegal Arguments");
             }
 
         }

@@ -20,6 +20,7 @@ public class CLI extends Display {
 
 
     public void start() {
+        System.out.print("\u000C");
         System.out.println(" ");
         System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2)");
         while (!false) {
@@ -30,7 +31,7 @@ public class CLI extends Display {
                 s.next();
             }
             if(game == 1) {
-                System.out.println("Der Computer raet");
+                System.out.println("Der Computer r\u00E4t");
                 playerguessing = false;
                 break;
             } else if (game == 2) {
@@ -47,12 +48,11 @@ public class CLI extends Display {
 
         if(!playerguessing) {
             System.out.println(" ");
-            System.out.println("Bitte waehlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
+            System.out.println("Bitte w\u00E4hlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
             for (int i = 0; i < temp.length; i++) {
                 while (!playerguessing) {
                     if (s.hasNextInt()) {
-                        int t;
-                        t = s.nextInt();
+                        int t = s.nextInt();
                         if (t >= 1 && t <= 8) {
                             temp[i] = t;
                         }
