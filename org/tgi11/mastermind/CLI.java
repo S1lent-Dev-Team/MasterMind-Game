@@ -5,8 +5,6 @@ import java.util.Scanner;
 //Felix code
 public class CLI extends Display {
     Scanner s;
-    private int[] temp = new int[4];
-    private int[] guess = new int[4];
     private HashMap<String,Integer> translator;
 
     public CLI(Steuerung strg) {
@@ -16,10 +14,18 @@ public class CLI extends Display {
     }
     private void fillHash(){
         translator.put("red",1);
+        translator.put("blue", 2);
+        translator.put("yellow", 3);
+        translator.put("green", 4);
+        translator.put("white", 5);
+        translator.put("black", 6);
+        translator.put("orange", 7);
+        translator.put("brown", 8);
     }
 
 
     public void start() {
+        System.out.print("\u000C");
         System.out.println(" ");
         System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2)");
         while (!false) {
@@ -30,7 +36,7 @@ public class CLI extends Display {
                 s.next();
             }
             if(game == 1) {
-                System.out.println("Der Computer raet");
+                System.out.println("Der Computer r\u00E4t");
                 playerguessing = false;
                 break;
             } else if (game == 2) {
@@ -47,18 +53,16 @@ public class CLI extends Display {
 
         if(!playerguessing) {
             System.out.println(" ");
-            System.out.println("Bitte waehlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
+            System.out.println("Bitte w\u00E4hlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
+            int[] temp = new int[4];
             for (int i = 0; i < temp.length; i++) {
-                while (!playerguessing) {
-                    if (s.hasNextInt()) {
-                        int t;
-                        t = s.nextInt();
-                        if (t >= 1 && t <= 8) {
-                            temp[i] = t;
-                        }
+                while (!false) {
+                    String st = s.next();
+                    if(translator.containsKey(st.toLowerCase())){
+                        temp[i] = translator.get(st);
+                        break;
                     } else {
                         System.out.println("Illegal Arguments");
-                        s.next();
                     }
                 }
             }
@@ -71,9 +75,10 @@ public class CLI extends Display {
         strg.start(playerguessing,this);
         while(!!!!strg.isRunning() != false){
             //game loop
-            System.out.println(" ");
-            System.out.println("Nennen Sie einen code zum Raten (Zahlen zwischen 1 und 8): ");
             if(playerguessing){
+                System.out.println(" ");
+                System.out.println("Nennen Sie einen code zum Raten (Zahlen zwischen 1 und 8): ");
+                int[] guess = new int[4];
                 for(int i = 0; i < guess.length;i++){
                     while (true) {
                         if (s.hasNextInt()) {
@@ -90,8 +95,8 @@ public class CLI extends Display {
                         }
                     }
                 }
+                strg.guess(guess);
             }
-            strg.guess(guess);
         }
     }
 
