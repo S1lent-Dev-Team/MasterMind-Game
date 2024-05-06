@@ -127,7 +127,11 @@ public class CLI extends Display {
         System.out.print("\u000C");
         if(!strg.isRunning()) {
             if (strg.getGamestate() == -1) {
-                System.out.println("Runde verloren! Der code war: " + codeToString(strg.getAnswer()));
+                String loss = "Runde verloren! ";
+                if(playerguessing){
+                    loss += "Der code war: " + codeToString(strg.getAnswer());
+                }
+                System.out.println(loss);
             } else if (strg.getGamestate() == 1) {
                 System.out.println("Sie haben gewonnen!");
             }
@@ -139,7 +143,7 @@ public class CLI extends Display {
             count++;
             if(i[0] != 0) {
                 int[] ix = Arrays.copyOfRange(i, 0, 4);
-                System.out.println(count+". Guess: "+ codeToString(ix)+multiprint("\u26AB",i[4])+multiprint("\u26AA",i[5]));
+                System.out.println(count+". Guess: "+ codeToString(ix)+" "+multiprint("\u26AB",i[4])+multiprint("\u26AA",i[5])+multiprint("x",4-i[4]-i[5]));
             }
         }
 
