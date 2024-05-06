@@ -115,6 +115,7 @@ public class CLI extends Display {
                         }
                     }
                 }
+                System.out.println(codeToString(strg.getAnswer()));
                 strg.guess(guess);
             }
         }
@@ -146,7 +147,7 @@ public class CLI extends Display {
     public String multiprint(String s,int times){
         String sx = "";
 
-        for(int i = times;i>=0;i--){
+        for(int i = 0;i<times;i++){
             sx+= s;
         }
         return sx;

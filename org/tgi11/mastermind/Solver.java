@@ -19,6 +19,8 @@ public class Solver {
 		if (comguessing) {
 			if(intelGuess){
 			strg.guess(new int[]{1,1,2,2});
+			}else {
+				randomGuess();
 			}
 			while (strg.isRunning()) {
 				systemWait();
