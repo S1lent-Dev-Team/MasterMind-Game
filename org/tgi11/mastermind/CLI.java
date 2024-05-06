@@ -116,15 +116,21 @@ public class CLI extends Display {
                     }
                 }
                 strg.guess(guess);
-                System.out.println(codeToString(strg.getAnswer())); //Testzwecke
-                System.out.println(strg.isRunning());//                   ||
             }
         }
+        draw();
     }
 
     @Override
     public void draw() {
         System.out.print("\u000C");
+        if(!strg.isRunning()) {
+            if (strg.getGamestate() == -1) {
+                System.out.println("Runde verloren! :(");
+            } else if (strg.getGamestate() == 1) {
+                System.out.println("Sie haben gewonnen!");
+            }
+        }
         if(!playerguessing) {
             System.out.println("Your Code is: " + codeToString(strg.getAnswer()));
         }

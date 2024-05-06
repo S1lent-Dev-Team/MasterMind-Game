@@ -52,7 +52,6 @@ public class Steuerung {
 		if(historysave[4] == 4){
             //won
             running = false;
-            System.out.println("hi");
             gamestate = 1;
             answer = null;
             return;
