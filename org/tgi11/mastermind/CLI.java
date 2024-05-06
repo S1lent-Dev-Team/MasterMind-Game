@@ -130,8 +130,7 @@ public class CLI extends Display {
             } else if (strg.getGamestate() == 1) {
                 System.out.println("Sie haben gewonnen!");
             }
-        }
-        if(!playerguessing) {
+        }else if(!playerguessing) {
             System.out.println("Your Code is: " + codeToString(strg.getAnswer()));
         }
         int count = 0;
@@ -139,12 +138,19 @@ public class CLI extends Display {
             count++;
             if(i[0] != 0) {
                 int[] ix = Arrays.copyOfRange(i, 0, 4);
-                System.out.println(count+". Guess: "+ codeToString(ix)+", Richtige Pos: "+i[4]+" , Richtige Farbe: "+i[5]);
+                System.out.println(count+". Guess: "+ codeToString(ix)+multiprint("\u26AB",i[4])+multiprint("\u26AA",i[5]));
             }
         }
 
     }
+    public String multiprint(String s,int times){
+        String sx = "";
 
+        for(int i = times;i>=0;i--){
+            sx+= s;
+        }
+        return sx;
+    }
     public String codeToString(int[] code){
         String s = "";
         for (int i:code) {

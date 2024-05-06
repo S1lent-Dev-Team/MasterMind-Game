@@ -53,14 +53,12 @@ public class Steuerung {
             //won
             running = false;
             gamestate = 1;
-            answer = null;
             return;
         }
         else if(guessesmade == 8){
             //loss
             running = false;
             gamestate = -1;
-            answer = null;
             return;
         }
 

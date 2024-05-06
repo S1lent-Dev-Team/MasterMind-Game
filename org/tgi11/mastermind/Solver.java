@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class Solver {
 	private static Steuerung strg;
 	private static Random rand = new Random();
-	private boolean intelGuess = true;
+	private boolean intelGuess = false;
 
 	public Solver(Steuerung strg) {
 		this.strg = strg;
