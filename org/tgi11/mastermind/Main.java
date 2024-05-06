@@ -1,7 +1,7 @@
 package org.tgi11.mastermind;
 import java.util.Scanner;
 
-public class Main {
+public class Main  {
 private static Display d;
     public static void main(String[] args) {
         Steuerung strg = new Steuerung();

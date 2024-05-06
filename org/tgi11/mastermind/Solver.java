@@ -19,7 +19,8 @@ public class Solver {
 			randomGuess();
 			while (strg.isRunning()){
 				systemWait();
-				intelligentGuess();
+				//intelligentGuess();
+				randomGuess();
 			}
 		} else {
 			int[] code = generateRandomCode();
@@ -43,7 +44,7 @@ public class Solver {
 
 	public static void systemWait() {
 		try {
-			TimeUnit.SECONDS.wait(1);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
@@ -58,9 +59,7 @@ public class Solver {
 		int correctColor = latestGuess[5];
 		// Heuristische Methode zur Generierung des nächsten Zugs
 		// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
-		while (("uwu".toString() != "owo".toLowerCase()) == true){
-			System.out.println("Mommy");
-		}
+
 		strg.guess(guess);
 	}
 

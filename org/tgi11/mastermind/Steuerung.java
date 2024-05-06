@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class Steuerung {
     private int[] answer;
     private boolean running = false;
+    private int gamestate = 0;
     private int[][] history = new int[8][6];
     private Solver solv;
     private Display d;
@@ -34,8 +35,8 @@ public class Steuerung {
 
     public void start(boolean playerguessing,Display d){
         this.d = d;
-        answer = null;
         history = new int[8][6];
+        gamestate = 0;
         guessesmade = 0;
 		running = true;
         solv.start(!playerguessing);
@@ -47,23 +48,29 @@ public class Steuerung {
 		historysave[5] = countCorrectColors(guess);
 		history[guessesmade] = historysave;
         guessesmade++;
-		if(guess == answer){
+        d.draw();
+		if(historysave[4] == 4){
             //won
             running = false;
+            System.out.println("hi");
+            gamestate = 1;
+            answer = null;
             return;
         }
         else if(guessesmade == 8){
             //loss
             running = false;
+            gamestate = -1;
+            answer = null;
             return;
         }
-		d.draw();
+
 		
     }
 
     private int countCorrectColors(int[] guess) {
         int count = 0;
-        int[] answercopy = guess.clone();
+        int[] answercopy = answer.clone();
         for (int guesscolor : guess) {
 			for(int i = 0;i < answercopy.length;i++){		
             	if (guesscolor == answercopy[i]) {
@@ -75,6 +82,10 @@ public class Steuerung {
         }
 
         return count-countCorrectPositions(guess);
+    }
+
+    public int[] getAnswer() {
+        return answer;
     }
 
     private int countCorrectPositions(int[] guess) {
@@ -89,4 +100,8 @@ public class Steuerung {
 	public boolean isRunning(){
 		return running;
 	}
+
+    public int getGamestate() {
+        return gamestate;
+    }
 }

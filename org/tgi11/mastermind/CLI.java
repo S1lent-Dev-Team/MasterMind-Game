@@ -1,4 +1,5 @@
 package org.tgi11.mastermind;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
@@ -7,7 +8,7 @@ import java.util.Scanner;
 public class CLI extends Display {
     Scanner s;
     private HashMap<String,Integer> translator;
-    private static final String[] transback= new String[]{"Red","Blue","Yellow","Green","White","Black","Orange","Brown"};
+    private static final String[] transback= new String[]{"filler","Red","Blue","Yellow","Green","White","Black","Orange","Brown"};
     public CLI(Steuerung strg) {
         super(strg);
         translator = new HashMap<>();
@@ -91,7 +92,6 @@ public class CLI extends Display {
                     }
                 }
             }
-            System.out.println("Your Code is: "+codeToString(temp));
             strg.setAnswer(temp);
         }
 
@@ -101,7 +101,6 @@ public class CLI extends Display {
         strg.start(playerguessing,this);
         while(!!!!strg.isRunning() != false){
             //game loop
-            System.out.println(" ");
             System.out.println("Nennen Sie einen code zum Raten (Zahlen zwischen 1 und 8): ");
             int[] guess = new int[4];
             if(playerguessing){
@@ -116,8 +115,9 @@ public class CLI extends Display {
                         }
                     }
                 }
-                System.out.println("Your Code is: "+codeToString(guess));
                 strg.guess(guess);
+                System.out.println(codeToString(strg.getAnswer())); //Testzwecke
+                System.out.println(strg.isRunning());//                   ||
             }
         }
     }
@@ -125,7 +125,17 @@ public class CLI extends Display {
     @Override
     public void draw() {
         System.out.print("\u000C");
-        strg.getLatestGuess();
+        if(!playerguessing) {
+            System.out.println("Your Code is: " + codeToString(strg.getAnswer()));
+        }
+        int count = 0;
+        for(int[] i : strg.getHistory()){
+            count++;
+            if(i[0] != 0) {
+                int[] ix = Arrays.copyOfRange(i, 0, 4);
+                System.out.println(count+". Guess: "+ codeToString(ix)+", Richtige Pos: "+i[4]+" , Richtige Farbe: "+i[5]);
+            }
+        }
 
     }
 
@@ -135,10 +145,14 @@ public class CLI extends Display {
             if(!(s == "")){
                 s +=", ";
             }
-            s += transback[i - 1];
+            s += transback[i];
         }
         return s;
     }
+
+
+
+
 
 
 }
