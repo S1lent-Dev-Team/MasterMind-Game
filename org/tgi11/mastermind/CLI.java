@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class CLI extends Display {
     Scanner s;
     private HashMap<String,Integer> translator;
-    private static final String[] transback= new String[]{" ","Red","Blue","Yellow","Green","White","Black","Orange","Brown"};
+    private static final String[] transback= new String[]{"Red","Blue","Yellow","Green","White","Black","Orange","Brown"};
     public CLI(Steuerung strg) {
         super(strg);
         translator = new HashMap<>();
@@ -136,7 +136,7 @@ public class CLI extends Display {
             if(!(s == "")){
                 s +=", ";
             }
-            s += transback[i];
+            s += transback[i - 1];
         }
         return s;
     }
