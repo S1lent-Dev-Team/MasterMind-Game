@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class CLI extends Display {
     Scanner s;
     private HashMap<String,Integer> translator;
-
+    private static final String[] transback= new String[]{" ","Red","Blue","Yellow","Green","White","Black","Orange","Brown"};
     public CLI(Steuerung strg) {
         super(strg);
         translator = new HashMap<>();
@@ -14,13 +14,36 @@ public class CLI extends Display {
     }
     private void fillHash(){
         translator.put("red",1);
+        translator.put("r",1);
+        translator.put("1",1);
+
         translator.put("blue", 2);
+        translator.put("b",2 );
+        translator.put("2", 2);
+
         translator.put("yellow", 3);
+        translator.put("y",3);
+        translator.put("3", 3);
+
         translator.put("green", 4);
+        translator.put("g",4);
+        translator.put("4", 4);
+
         translator.put("white", 5);
+        translator.put("w", 5);
+        translator.put("5" ,5);
+
         translator.put("black", 6);
+        translator.put("bl", 6);
+        translator.put("6", 6);
+
         translator.put("orange", 7);
+        translator.put("o", 7);
+        translator.put("7", 7);
+
         translator.put("brown", 8);
+        translator.put("br", 8);
+        translator.put("8", 8);
     }
 
 
@@ -105,6 +128,17 @@ public class CLI extends Display {
 
     public void drawArray() {
 
+    }
+
+    public String codeToString(int[] code){
+        String s = "";
+        for (int i:code) {
+            if(!(s == "")){
+                s +=", ";
+            }
+            s += transback[i];
+        }
+        return s;
     }
 
 }
