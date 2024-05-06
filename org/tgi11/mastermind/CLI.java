@@ -1,4 +1,5 @@
 package org.tgi11.mastermind;
+import java.util.HashMap;
 import java.util.Scanner;
 
 //Felix code
@@ -6,10 +7,15 @@ public class CLI extends Display {
     Scanner s;
     private int[] temp = new int[4];
     private int[] guess = new int[4];
+    private HashMap<String,Integer> translator;
 
     public CLI(Steuerung strg) {
         super(strg);
+        translator = new HashMap<>();
         s=new Scanner(System.in);
+    }
+    private void fillHash(){
+        translator.put("red",1);
     }
 
 
