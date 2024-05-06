@@ -126,7 +126,7 @@ public class CLI extends Display {
         System.out.print("\u000C");
         if(!strg.isRunning()) {
             if (strg.getGamestate() == -1) {
-                System.out.println("Runde verloren! :(");
+                System.out.println("Runde verloren! Der code war: " + codeToString(strg.getAnswer()));
             } else if (strg.getGamestate() == 1) {
                 System.out.println("Sie haben gewonnen!");
             }
