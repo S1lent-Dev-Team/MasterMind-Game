@@ -101,6 +101,19 @@ public class Solver {
 
 		return fStream;
 	}
+	public IntStream filterStreamPosition(IntStream intStream,int filter,int position){
+		IntStream fStream = intStream.filter(num ->{
+			int[] temp = new int[4];
+			for(int i = 3; i >= position; i++) {
+				temp[i] = num % 10;
+				num = num / 10;
+			}
+            return temp[position] != filter;
+        });
+
+		return fStream;
+	}
+
 
 
 
