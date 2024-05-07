@@ -45,6 +45,9 @@ public class Steuerung {
     }
 				
     public void guess(int[] guess){
+        if(guess[0] == 0){
+            return;
+        }
 		int[] historysave = Arrays.copyOf(guess,6);
 		historysave[4] = countCorrectPositions(guess);
 		historysave[5] = countCorrectColors(guess);

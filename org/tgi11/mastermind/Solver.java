@@ -1,21 +1,25 @@
 package org.tgi11.mastermind;
 
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-// Collin
+import java.util.Random;
+import java.util.stream.IntStream;
+
+// Felix,Collin, Jonas
 public class Solver {
-	private static Steuerung strg;
+	private  Steuerung strg;
 	private static Random rand = new Random();
-	private boolean intelGuess = false;
+	private boolean intelGuess = true;
+	private IntStream canBeList;
 
 	public Solver(Steuerung strg) {
 		this.strg = strg;
 	}
 
 	public void start(boolean comguessing) {
+		canBeList = IntStream.rangeClosed(1111,8888);
+		canBeList = filterStreamContain(canBeList,0);
+		canBeList = filterStreamContain(canBeList,9);
 		if (comguessing) {
 			if(intelGuess){
 			strg.guess(new int[]{1,1,2,2});
@@ -36,7 +40,7 @@ public class Solver {
 		}
 	}
 
-	public static void randomGuess() {
+	public void randomGuess() {
 		int[] code = generateRandomCode();
 		strg.guess(code);
 	}
@@ -50,7 +54,7 @@ public class Solver {
 		return code;
 	}
 
-	public static void systemWait() {
+	public void systemWait() {
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
@@ -58,8 +62,10 @@ public class Solver {
 		}
 	}
 
+
+
 	// Intelligenter Mastermind Algorithmus zur Generierung des nächsten Zugs basierend auf den Rückmeldungen des Spiels
-	public static void intelligentGuess() {
+	public void intelligentGuess() {
 		int[] guess = new int[4];
 		int[][] history = strg.getHistory();
 		int[] latestGuess = strg.getLatestGuess();
@@ -68,7 +74,6 @@ public class Solver {
 		//p = 4
 		// Heuristische Methode zur Generierung des nächsten Zugs
 		// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
-
 
 		/*
 		s = 4096
@@ -83,6 +88,22 @@ public class Solver {
 		*/
 		strg.guess(guess);
 	}
+	public IntStream filterStreamContain(IntStream intStream,int... filter){
+		IntStream fStream = intStream.filter(num ->{
+			boolean keep = true;
+			for(int i : filter){
+				if (String.valueOf(num).contains(String.valueOf(i))){
+					keep = false;
+				}
+			}
+            return keep;
+        });
+
+		return fStream;
+	}
+
+
+
 
 
 
