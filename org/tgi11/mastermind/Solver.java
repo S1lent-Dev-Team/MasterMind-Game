@@ -101,7 +101,7 @@ public class Solver {
 
 		return fStream;
 	}
-	public IntStream filterStreamPosition(IntStream intStream,int filter,int position){
+	public IntStream filterStreamPosition(IntStream intStream,int filter,int position){//position = index of array z.b. Color 1 = position 0
 		IntStream fStream = intStream.filter(num ->{
 			int[] temp = new int[4];
 			for(int i = 3; i >= position; i++) {
