@@ -5,7 +5,7 @@ package org.tgi11.mastermind;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-// Felix,Collin, Jonas
+// Felix,Collin bisschen schlechter code, Jonas
 public class Solver {
 	private  Steuerung strg;
 	private static Random rand = new Random();
@@ -69,8 +69,8 @@ public class Solver {
 		int[] guess = new int[4];
 		int[][] history = strg.getHistory();
 		int[] latestGuess = strg.getLatestGuess();
-		int correctPositionAndColor = latestGuess[4]; //x
-		int correctColor = latestGuess[5]; //y
+		int cP = latestGuess[4]; //x
+		int cC = latestGuess[5]; //y
 		//p = 4
 		// Heuristische Methode zur Generierung des nächsten Zugs
 		// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
@@ -101,14 +101,15 @@ public class Solver {
 
 		return fStream;
 	}
-	public IntStream filterStreamPosition(IntStream intStream,int filter,int position){//position = index of array z.b. Color 1 = position 0
+	public IntStream filterStreamPosition(IntStream intStream,int[] filter){//0 als filtereitrag bedeutet Slot überspringen
 		IntStream fStream = intStream.filter(num ->{
-			int[] temp = new int[4];
-			for(int i = 3; i >= position; i++) {
-				temp[i] = num % 10;
+			for(int i = 3; i >= 0; i++) {
+				if(filter[i] == num % 10 && filter[i] <= 0){
+						return false;
+				}
 				num = num / 10;
 			}
-            return temp[position] != filter;
+            return true;
         });
 
 		return fStream;
