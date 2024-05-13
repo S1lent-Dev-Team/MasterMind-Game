@@ -3,7 +3,6 @@ package org.tgi11.mastermind;
 
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -158,6 +157,7 @@ public class Solver {
 
 	}
 	public int[] intToArray(int x){
+		//felix machen
 		return null;
 	}
 
