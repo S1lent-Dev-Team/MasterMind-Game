@@ -129,9 +129,12 @@ public class Solver {
 		int bestguess = -1;
 
 		for(int i : canBeList.toArray()){
-			for (int k : canBeList.toArray()){
+
+			for(int k=0; < 81;i++){
+				for (int j : canBeList.toArray()){
 
 
+				}
 			}
 		}
 
