@@ -115,7 +115,6 @@ public class CLI extends Display {
                         }
                     }
                 }
-                System.out.println(codeToString(strg.getAnswer()));
                 strg.guess(guess);
             }
         }
