@@ -117,6 +117,20 @@ public class Solver {
 	}
 
 
+	public void miniMax(){
+		int bestguess = -1;
+
+		for(int i : canBeList.toArray()){
+			for (int k : canBeList.toArray()){
+
+
+			}
+		}
+
+	}
+
+
+
 
 
 
