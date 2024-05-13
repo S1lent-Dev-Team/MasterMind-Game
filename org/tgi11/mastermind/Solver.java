@@ -9,14 +9,21 @@ import java.util.stream.IntStream;
 public class Solver {
 	private  Steuerung strg;
 	private static Random rand = new Random();
-	private boolean intelGuess = true;
+	private boolean intelGuess = false;
+
+	private boolean solverRunning = false;
 	private IntStream canBeList;
 
 	public Solver(Steuerung strg) {
 		this.strg = strg;
 	}
 
+	public boolean isSolverRunning() {
+		return solverRunning;
+	}
+
 	public void start(boolean comguessing) {
+		solverRunning = true;
 		canBeList = IntStream.rangeClosed(1111,8888);
 		canBeList = filterStreamContain(canBeList,0);
 		canBeList = filterStreamContain(canBeList,9);
@@ -39,6 +46,7 @@ public class Solver {
 			int[] code = generateRandomCode();
 			strg.setAnswer(code);
 		}
+		solverRunning = false;
 	}
 
 	public void randomGuess() {

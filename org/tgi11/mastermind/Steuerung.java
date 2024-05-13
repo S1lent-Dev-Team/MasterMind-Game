@@ -43,6 +43,13 @@ public class Steuerung {
 		running = true;
         solv.start(!playerguessing);
     }
+    public void stop(){
+        running = false;
+    }
+
+    public boolean isSolverRunning(){
+        return solv.isSolverRunning();
+    }
 				
     public void guess(int[] guess){
         if(guess[0] == 0){
