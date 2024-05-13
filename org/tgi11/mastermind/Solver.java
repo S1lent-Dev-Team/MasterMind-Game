@@ -2,6 +2,8 @@ package org.tgi11.mastermind;
 
 
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -12,7 +14,7 @@ public class Solver {
 	private boolean intelGuess = false;
 
 	private boolean solverRunning = false;
-	private IntStream canBeList;
+	private IntStream canBeStream;
 
 	public Solver(Steuerung strg) {
 		this.strg = strg;
@@ -24,9 +26,9 @@ public class Solver {
 
 	public void start(boolean comguessing) {
 		solverRunning = true;
-		canBeList = IntStream.rangeClosed(1111,8888);
-		canBeList = filterStreamContain(canBeList,0);
-		canBeList = filterStreamContain(canBeList,9);
+		canBeStream = IntStream.rangeClosed(1111,8888);
+		canBeStream = filterStreamContain(canBeStream,0);
+		canBeStream = filterStreamContain(canBeStream,9);
 		if (comguessing) {
 			if(intelGuess){
 			int x = rand.nextInt(6)+1;
@@ -95,7 +97,7 @@ public class Solver {
 
 		=> Mach guess basierend auf geg. Pos + Farben
 		*/
-		strg.guess(guess);
+		strg.guess(miniMax());
 	}
 	public IntStream filterStreamContain(IntStream intStream,int... filter){
 		IntStream fStream = intStream.filter(num ->{
@@ -125,19 +127,38 @@ public class Solver {
 	}
 
 
-	public void miniMax(){
-		int bestguess = -1;
+	public int[] miniMax(){
+		int[] canBeList = canBeStream.toArray();
+		canBeStream = Arrays.stream(canBeList);
+		int bestguess = 1111;
+		int lowestnum = canBeList.length;
 
-		for(int i : canBeList.toArray()){
+		for(int i : canBeList){
+			int biggestnum = -1;
+			for(int k=0; k < 14;k++){//weiß nicht ob 14
+				IntStream tempstream = Arrays.stream(canBeList);
+				//calc
 
-			for(int k=0; < 81;i++){
-				for (int j : canBeList.toArray()){
 
 
+
+
+
+				int count = (int) tempstream.count();
+				if(count >=biggestnum){
+					biggestnum = count;
 				}
 			}
+			if(biggestnum < lowestnum){
+				bestguess = i;
+				lowestnum = biggestnum;
+			}
 		}
+		return intToArray(bestguess);
 
+	}
+	public int[] intToArray(int x){
+		return null;
 	}
 
 
