@@ -22,7 +22,8 @@ public class Solver {
 		canBeList = filterStreamContain(canBeList,9);
 		if (comguessing) {
 			if(intelGuess){
-			strg.guess(new int[]{1,1,2,2});
+			int x = rand.nextInt(6)+1;
+			strg.guess(new int[]{x,x,x+1,x+1});
 			}else {
 				randomGuess();
 			}
