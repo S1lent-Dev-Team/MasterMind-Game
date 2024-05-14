@@ -133,8 +133,8 @@ public class Solver {
 		int lowestnum = canBeList.length;
 
 		for(int i : canBeList){
-			int biggestnum = -1;
-			for(int k=0; k < 14;k++){//weiß nicht ob 14
+			int worstcase = -1;
+			for(int k=0; k < 14;k++){//weiß nicht ob 14 wxxx 1111
 				IntStream tempstream = Arrays.stream(canBeList);
 				//calc
 
@@ -144,13 +144,13 @@ public class Solver {
 
 
 				int count = (int) tempstream.count();
-				if(count >=biggestnum){
-					biggestnum = count;
+				if(count >=worstcase){
+					worstcase = count;
 				}
 			}
-			if(biggestnum < lowestnum){
+			if(worstcase < lowestnum){
 				bestguess = i;
-				lowestnum = biggestnum;
+				lowestnum = worstcase;
 			}
 		}
 		return intToArray(bestguess);
@@ -158,6 +158,10 @@ public class Solver {
 	}
 	public int[] intToArray(int x){
 		//felix machen
+
+
+
+
 		return null;
 	}
 
