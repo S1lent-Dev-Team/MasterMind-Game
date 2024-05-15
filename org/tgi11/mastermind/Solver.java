@@ -100,13 +100,13 @@ public class Solver {
 	}
 	public IntStream filterStreamContain(IntStream intStream,int... filter){
 		IntStream fStream = intStream.filter(num ->{
-			boolean keep = true;
+			int keep = 0;
 			for(int i : filter){
 				if (String.valueOf(num).contains(String.valueOf(i))){
-					keep = false;
+					keep++;
 				}
 			}
-            return keep;
+            return keep != filter.length;
         });
 
 		return fStream;
