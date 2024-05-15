@@ -1,8 +1,6 @@
 package org.tgi11.mastermind.gui;
 
 
-import org.tgi11.mastermind.GUI;
-import org.tgi11.mastermind.Steuerung;
 
 import javax.swing.*;
 import java.awt.*;
