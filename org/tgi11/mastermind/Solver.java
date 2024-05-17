@@ -82,27 +82,32 @@ public class Solver {
 		int cP = strg.getLatestGuess()[4]; //x
 		int cC = strg.getLatestGuess()[5]; //y
 		//p = 4
-		if(cC == 0){
-			for(int i = 0; i < 4;i++){
-					canBeStream = filterStreamContain(canBeStream,latestGuess[i]);
-			}
-		}else if(cC == 1){
-			for(int i = 0; i < 3;i++){
-				for(int k = i; k <4;k++) {
-					canBeStream = filterStreamContain(canBeStream,latestGuess[i],latestGuess[k]);
+		switch (cC) {
+			case 0 -> {
+				for (int i = 0; i < 4; i++) {
+					canBeStream = filterStreamContain(canBeStream, latestGuess[i]);
 				}
 			}
-		}else if(cC == 2){
-			for(int i = 0; i < 2;i++){
-				for(int k = i; k <3;k++) {
-					for(int j = k; j <4;j++){
-					canBeStream = filterStreamContain(canBeStream,latestGuess[i],latestGuess[k],latestGuess[j]);
+			case 1 -> {
+				for (int i = 0; i < 3; i++) {
+					for (int k = i; k < 4; k++) {
+						canBeStream = filterStreamContain(canBeStream, latestGuess[i], latestGuess[k]);
 					}
 				}
 			}
-		}else if(cC == 3){
-			canBeStream = filterStreamContain(canBeStream,latestGuess);
-		}
+			case 2-> {
+				for (int i = 0; i < 2; i++) {
+					for (int k = i; k < 3; k++) {
+						for (int j = k; j < 4; j++) {
+							canBeStream = filterStreamContain(canBeStream, latestGuess[i], latestGuess[k], latestGuess[j]);
+						}
+					}
+				}
+			}
+			case 3 ->{
+				canBeStream = filterStreamContain(canBeStream, latestGuess);}
+
+        }
 
 		// Heuristische Methode zur Generierung des nächsten Zugs
 		// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
