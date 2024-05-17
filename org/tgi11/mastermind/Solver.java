@@ -78,10 +78,32 @@ public class Solver {
 	public void intelligentGuess() {
 		int[] guess = new int[4];
 		int[][] history = strg.getHistory();
-		int[] latestGuess = strg.getLatestGuess();
-		int cP = latestGuess[4]; //x
-		int cC = latestGuess[5]; //y
+		int[] latestGuess = Arrays.stream(strg.getLatestGuess()).limit(4).toArray();
+		int cP = strg.getLatestGuess()[4]; //x
+		int cC = strg.getLatestGuess()[5]; //y
 		//p = 4
+		if(cC == 0){
+			for(int i = 0; i < 4;i++){
+					canBeStream = filterStreamContain(canBeStream,latestGuess[i]);
+			}
+		}else if(cC == 1){
+			for(int i = 0; i < 3;i++){
+				for(int k = i; k <4;k++) {
+					canBeStream = filterStreamContain(canBeStream,latestGuess[i],latestGuess[k]);
+				}
+			}
+		}else if(cC == 2){
+			for(int i = 0; i < 2;i++){
+				for(int k = i; k <3;k++) {
+					for(int j = k; j <4;j++){
+					canBeStream = filterStreamContain(canBeStream,latestGuess[i],latestGuess[k],latestGuess[j]);
+					}
+				}
+			}
+		}else if(cC == 3){
+			canBeStream = filterStreamContain(canBeStream,latestGuess);
+		}
+
 		// Heuristische Methode zur Generierung des nächsten Zugs
 		// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
 
@@ -137,7 +159,6 @@ public class Solver {
 			for(int k=0; k < 14;k++){//weiß nicht ob 14 wxxx 1111
 				IntStream tempstream = Arrays.stream(canBeList);
 				//calc
-
 
 
 
