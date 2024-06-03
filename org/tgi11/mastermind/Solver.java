@@ -120,7 +120,7 @@ public class Solver {
 // Behalt alle codes die 1 oder mehr cC oder cP haben.
 // lösch alle codes, die weniger cP oder cC haben, als der latestGuess; latestGuess cP 3, cC 0 -> delete alle codes die weniger als cP = 3 haben.
 
-
+//Case 1 bis 3 lösch alle codes, welche cP < 1,2,3 haben, behalt alle restlichen codes. Sobald ein neuer guess mit den restlichen codes gemacht wurde, wiederhol das ganze.
 
 
 
