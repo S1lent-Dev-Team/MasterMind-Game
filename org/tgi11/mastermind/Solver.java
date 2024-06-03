@@ -115,6 +115,17 @@ public class Solver {
 		// Heuristische Methode zur Generierung des nächsten Zugs
 		// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
 
+
+// Lösch code, ohne paasende farbe.
+// Behalt alle codes die 1 oder mehr cC oder cP haben.
+// lösch alle codes, die weniger cP oder cC haben, als der latestGuess; latestGuess cP 3, cC 0 -> delete alle codes die weniger als cP = 3 haben.
+
+
+
+
+
+
+
 		/*
 		s = 4096
 		1er guess = 1122
