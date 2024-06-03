@@ -85,6 +85,7 @@ public class Solver {
 
 
 		//Delete Welche nich sein können (Impossible cases){
+		if(cP ==0){
 		switch (cC) {
 			case 0 -> {
 				for (int i = 0; i < 4; i++) {
@@ -111,6 +112,7 @@ public class Solver {
 				canBeStream = filterStreamContain(canBeStream, latestGuess);
 			}
         }
+}
 
 		// Heuristische Methode zur Generierung des nächsten Zugs
 		// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
