@@ -93,7 +93,7 @@ public class CLI extends Display {
                 while (!false) {
                     String st = s.next();
                     if(translator.containsKey(st.toLowerCase())){
-                        temp[i] = translator.get(st);
+                        temp[i] = translator.get(st.toLowerCase());
                         break;
                     } else {
                         System.out.println("Illegal Arguments");
@@ -116,7 +116,7 @@ public class CLI extends Display {
                     while (true) {
                         String st = s.next();
                         if(translator.containsKey(st.toLowerCase())){
-                            guess[i] = translator.get(st);
+                            guess[i] = translator.get(st.toLowerCase());
                             break;
                         } else {
                             System.out.println("Illegal Arguments");

@@ -82,6 +82,9 @@ public class Solver {
 		int cP = strg.getLatestGuess()[4]; //x
 		int cC = strg.getLatestGuess()[5]; //y
 		//p = 4
+
+
+		//Delete Welche nich sein können (Impossible cases){
 		switch (cC) {
 			case 0 -> {
 				for (int i = 0; i < 4; i++) {
@@ -104,9 +107,9 @@ public class Solver {
 					}
 				}
 			}
-			case 3 ->{
-				canBeStream = filterStreamContain(canBeStream, latestGuess);}
-
+			case 3,4 ->{
+				canBeStream = filterStreamContain(canBeStream, latestGuess);
+			}
         }
 
 		// Heuristische Methode zur Generierung des nächsten Zugs
@@ -123,6 +126,7 @@ public class Solver {
 
 		=> Mach guess basierend auf geg. Pos + Farben
 		*/
+		//}
 		strg.guess(miniMax());
 	}
 	public IntStream filterStreamContain(IntStream intStream,int... filter){
@@ -163,9 +167,86 @@ public class Solver {
 			int worstcase = -1;
 			for(int k=0; k < 14;k++){//weiß nicht ob 14 wxxx 1111
 				IntStream tempstream = Arrays.stream(canBeList);
+				int cC; //correctColor
+				int cP; //correctPosition
 				//calc
+				switch(k){
+					case 0 -> {
+						cC = 0;
+						cP = 0;
+					}
+					case 1 -> {
+						cC = 0;
+						cP = 1;
+					}
 
+					case 2 -> {
+						cC = 0;
+						cP = 2;
+					}
 
+					case 3 -> {
+						cC = 0;
+						cP = 3;
+					}
+
+					case 4 -> {
+						cC = 0;
+						cP = 4;
+					}
+
+					case 5 -> {
+						cC = 1;
+						cP = 0;
+					}
+
+					case 6 -> {
+						cC = 2;
+						cP = 0;
+					}
+
+					case 7 -> {
+						cC = 3;
+						cP = 0;
+					}
+
+					case 8 -> {
+						cC = 4;
+						cP = 0;
+					}
+
+					case 9 -> {
+						cC= 3;
+						cP = 1;
+					}
+
+					case 10 -> {
+						cC = 2;
+						cP = 1;
+					}
+
+					case 11 -> {
+						cC = 1;
+						cP = 1;
+					}
+
+					case 12 -> {
+						cC = 2;
+						cP = 2;
+					}
+
+					case 13 -> {
+						cC = 1;
+						cP = 2;
+					}
+				}
+
+// cP = 0 und cC = 0 -> case 0
+// cP = 1 bis 3 cC = 0 -> cases 1 bis 3 -> case 1 ->{cC = 0; cP = 1;}
+// cP = 0 cC = 1 bis 4 -> cases 5 bis 8
+// cP = 3, cC = 1 -> case 9
+// cP = 2, cC = 2 -> case 10
+// cP = 1, cC = 3 -> case 11
 
 
 
@@ -183,12 +264,15 @@ public class Solver {
 
 	}
 	public int[] intToArray(int x){
-		//felix machen
-
-
-
-
-		return null;
+				int j = 0;
+				int size = Integer.toString(x).length();
+				int[] bguess = new int[size];
+				while(x!=0){
+					bguess[size-j-1] = x%10;
+					x=x/10;
+					j++;
+				}
+		return bguess;
 	}
 
 
