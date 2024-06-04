@@ -125,10 +125,11 @@ public class Solver {
 //Case 1 bis 3 lösch alle codes, welche cP < 1,2,3 haben, behalt alle restlichen codes. Sobald ein neuer guess mit den restlichen codes gemacht wurde, wiederhol das ganze.
 //ignorier cC
 /*
-case cP = 0, cC = 1 - 4: if(cP == 0 && cC != 0){
+case cP = 0, cC = 1 - 4:
+if(cP == 0 && cC != 0){
 tempArray = latestGuess.clone();
-if(cP == 0) {
-canBeStream = filterStreamPosition(canBeStream, tempArray);
+if(tempArray[cP] == 0) {
+canBeStream = filterStreamPosition(canBeStream, tempArray[cP]);
 } else {
 
 }
