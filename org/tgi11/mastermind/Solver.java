@@ -103,7 +103,7 @@ public class Solver {
 		IntStream fStream = intStream.filter(numIn ->{
 			int[] numarr = intToArray(numIn);
 for(int i = 0; i< 4;i++){
-if(num[i] == filter[i]){
+if(numarr[i] == filter[i]){
 return false;
 }
 }
@@ -211,7 +211,6 @@ return true;
 				if(count >=worstcase){
 					worstcase = count;
 				}
-				add+= count;
 			}
 			if(worstcase < lowestnum){
 				bestguess = i;
