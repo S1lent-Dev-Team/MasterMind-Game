@@ -25,6 +25,7 @@ public class Solver {
 
 	public void start(boolean comguessing) {
 		solverRunning = true;
+		System.out.println(intToArray(5382)[0]+","+intToArray(5382)[1]+","+intToArray(5382)[2]+","+intToArray(5382)[3]);
 		canBeStream = IntStream.rangeClosed(1111,8888);
 		canBeStream = filterStreamContain(canBeStream,0);
 		canBeStream = filterStreamContain(canBeStream,9);
@@ -82,7 +83,7 @@ public class Solver {
 		int cP = strg.getLatestGuess()[4]; //x
 		int cC = strg.getLatestGuess()[5]; //y
 		//p = 4
-		deleteThisShit(canBeStream,latestGuess,cC,cP);
+		canBeStream = deleteThisShit(canBeStream,latestGuess,cC,cP);
 		strg.guess(miniMax());
 	}
 	public IntStream filterStreamContain(IntStream intStream,int... filter){
@@ -100,7 +101,7 @@ public class Solver {
 	}
 	public IntStream filterStreamPosition(IntStream intStream,int[] filter){//0 als filtereitrag bedeutet Slot überspringen
 		IntStream fStream = intStream.filter(num ->{
-			for(int i = 3; i >= 0; i++) {
+			for(int i = 3; i >= 0; i--) {
 				if(filter[i] == num % 10 && filter[i] <= 0){
 						return false;
 				}
@@ -117,10 +118,11 @@ public class Solver {
 		int[] canBeList = canBeStream.toArray();
 		canBeStream = Arrays.stream(canBeList);
 		int bestguess = 1111;
-		int lowestnum = canBeList.length;
+		int lowestnum = 9999999;
 
 		for(int i : canBeList){
 			int worstcase = -1;
+			int add = 0;
 			for(int k=0; k < 14;k++){//weiß nicht ob 14 wxxx 1111
 				IntStream tempstream = Arrays.stream(canBeList);
 				int cC = -1; //correctColor
@@ -203,31 +205,21 @@ public class Solver {
 // cP = 3, cC = 1 -> case 9
 // cP = 2, cC = 2 -> case 10
 // cP = 1, cC = 3 -> case 11
-deleteThisShit(tempstream, intToArray(i),cC,cP);
-
-
-
-
-
-
-
-
-
-
-
-
+			tempstream = deleteThisShit(tempstream, intToArray(i),cC,cP);
 
 
 				int count = (int) tempstream.count();
 				if(count >=worstcase){
 					worstcase = count;
 				}
+				add+= count;
 			}
 			if(worstcase < lowestnum){
 				bestguess = i;
 				lowestnum = worstcase;
 			}
 		}
+		System.out.println(lowestnum);
 		return intToArray(bestguess);
 
 	}
@@ -243,7 +235,7 @@ deleteThisShit(tempstream, intToArray(i),cC,cP);
 		return bguess;
 	}
 
-	public void deleteThisShit(IntStream stream, int[] guess, int cC, int cP ){
+	public IntStream deleteThisShit(IntStream stream, int[] guess, int cC, int cP ){
 		if(cP ==0){
 			switch (cC) {
 				case 0 -> {
@@ -266,9 +258,6 @@ deleteThisShit(tempstream, intToArray(i),cC,cP);
 							}
 						}
 					}
-				}
-				case 3,4 ->{
-					stream = filterStreamContain(stream, guess);
 				}
 			}
 		}
@@ -331,7 +320,10 @@ deleteThisShit(tempstream, intToArray(i),cC,cP);
 
 		=> Mach guess basierend auf geg. Pos + Farben
 		*/
-
+		if(cP < 4){
+		stream = filterStreamContain(stream,guess);
+		}
+		return stream;
 	}
 }
 
