@@ -234,8 +234,10 @@ public class Solver {
 		return bguess;
 	}
 
-	public IntStream deleteThisShit(IntStream stream, int[] guess, int cC, int cP ){
-		if(cP ==0){
+	public IntStream deleteThisShit(IntStream streamIn, int[] guess, int cC, int cP ){
+		IntStream stream = streamIn;
+
+if(cP ==0){
 			switch (cC) {
 				case 0 -> {
 					for (int i = 0; i < 4; i++) {
