@@ -89,14 +89,11 @@ public class Solver {
 		int cC = strg.getLatestGuess()[5]; //y
 		//p = 4
 
-		int[] canBeList = canBeStream.toArray();
-		canBeStream = Arrays.stream(canBeList);
-		System.out.println(Arrays.stream(canBeList).filter(num -> num==strg.getAnswer()[0]*1000+strg.getAnswer()[1]*100+strg.getAnswer()[2]*10+strg.getAnswer()[3]).count()==1 ?"Contains Solution":"Doesn´t contain solution");
 
 		canBeStream = deleteThisShit(canBeStream,latestGuess,cC,cP);
-		canBeList = canBeStream.toArray();
+		int [] canBeList = canBeStream.toArray();
 		canBeStream = Arrays.stream(canBeList);
-		System.out.println(canBeList.length);
+		System.out.println("Possible Solutions: "+canBeList.length);
 		System.out.println(Arrays.stream(canBeList).filter(num -> num==strg.getAnswer()[0]*1000+strg.getAnswer()[1]*100+strg.getAnswer()[2]*10+strg.getAnswer()[3]).count()==1 ?"Contains Solution":"Doesn´t contain solution");
 		strg.guess(miniMax());
 	}
