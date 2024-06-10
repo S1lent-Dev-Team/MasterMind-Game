@@ -7,7 +7,8 @@ public class Steuerung {
     private int[] answer;
     private boolean running = false;
     private int gamestate = 0;
-    private int[][] history = new int[8][6];
+    private int maxguesscount = 16;
+    private int[][] history = new int[maxguesscount][6];
     private Solver solv;
     private Display d;
     private int guessesmade = 0;
@@ -37,7 +38,7 @@ public class Steuerung {
     public void start(boolean playerguessing,Display d){
         this.d = d;
         this.playerguessing = playerguessing;
-        history = new int[8][6];
+        history = new int[maxguesscount][6];
         gamestate = 0;
         guessesmade = 0;
 		running = true;
@@ -45,6 +46,7 @@ public class Steuerung {
     }
     public void stop(){
         running = false;
+        answer = null;
     }
 
     public boolean isSolverRunning(){
@@ -71,7 +73,7 @@ public class Steuerung {
             }
             return;
         }
-        else if(guessesmade == 8){
+        else if(guessesmade == maxguesscount){
             //loss
             running = false;
             if(playerguessing){

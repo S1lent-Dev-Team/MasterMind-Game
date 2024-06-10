@@ -64,12 +64,12 @@ public class CLI extends Display {
         System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2)");
         while (!false) {
             int game = -1;
-            if(s.hasNextInt()) {
+            if (s.hasNextInt()) {
                 game = s.nextInt();
-            }else{
+            } else {
                 s.next();
             }
-            if(game == 1) {
+            if (game == 1) {
                 System.out.println("Der Computer r\u00E4t");
                 playerguessing = false;
                 break;
@@ -78,21 +78,21 @@ public class CLI extends Display {
                 playerguessing = true;
                 break;
 
-            }else{
+            } else {
                 System.out.println("Illegal Arguments");
             }
 
         }
 
-
-        if(!playerguessing) {
+        while(true){
+        if (!playerguessing) {
             System.out.println(" ");
             System.out.println("Bitte w\u00E4hlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
             int[] temp = new int[4];
             for (int i = 0; i < temp.length; i++) {
                 while (!false) {
                     String st = s.next();
-                    if(translator.containsKey(st.toLowerCase())){
+                    if (translator.containsKey(st.toLowerCase())) {
                         temp[i] = translator.get(st.toLowerCase());
                         break;
                     } else {
@@ -104,18 +104,16 @@ public class CLI extends Display {
         }
 
 
-
-
-        strg.start(playerguessing,this);
-        while(!!!!strg.isRunning() != false){
+        strg.start(playerguessing, this);
+        while (!!!!strg.isRunning() != false) {
             //game loop
             System.out.println("Nennen Sie einen code zum Raten (Zahlen zwischen 1 und 8): ");
             int[] guess = new int[4];
-            if(playerguessing){
-                for(int i = 0; i < guess.length;i++){
+            if (playerguessing) {
+                for (int i = 0; i < guess.length; i++) {
                     while (true) {
                         String st = s.next();
-                        if(translator.containsKey(st.toLowerCase())){
+                        if (translator.containsKey(st.toLowerCase())) {
                             guess[i] = translator.get(st.toLowerCase());
                             break;
                         } else {
@@ -127,6 +125,8 @@ public class CLI extends Display {
             }
         }
         draw();
+        strg.stop();
+    }
     }
 
     @Override

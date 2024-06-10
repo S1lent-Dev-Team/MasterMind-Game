@@ -25,7 +25,6 @@ public class Solver {
 
 	public void start(boolean comguessing) {
 		solverRunning = true;
-		System.out.println(intToArray(5382)[0]+","+intToArray(5382)[1]+","+intToArray(5382)[2]+","+intToArray(5382)[3]);
 		canBeStream = IntStream.rangeClosed(1111,8888);
 		canBeStream = filterStreamContain(canBeStream,0);
 		canBeStream = filterStreamContain(canBeStream,9);
@@ -73,41 +72,55 @@ public class Solver {
 		}
 	}
 
+	public static void main(String[] args) {
+		IntStream scanBeStream = IntStream.rangeClosed(1111,2222);
+		scanBeStream = filterStreamContain(scanBeStream,1);
+		for(int i : scanBeStream.toArray()){
+			System.out.println(i);
+		}
+	}
+
 
 
 	// Intelligenter Mastermind Algorithmus zur Generierung des nächsten Zugs basierend auf den Rückmeldungen des Spiels
 	public void intelligentGuess() {
-		int[] guess = new int[4];
-		int[][] history = strg.getHistory();
 		int[] latestGuess = Arrays.stream(strg.getLatestGuess()).limit(4).toArray();
 		int cP = strg.getLatestGuess()[4]; //x
 		int cC = strg.getLatestGuess()[5]; //y
 		//p = 4
+
+		int[] canBeList = canBeStream.toArray();
+		canBeStream = Arrays.stream(canBeList);
+		System.out.println(Arrays.stream(canBeList).filter(num -> num==strg.getAnswer()[0]*1000+strg.getAnswer()[1]*100+strg.getAnswer()[2]*10+strg.getAnswer()[3]).count()==1 ?"Contains Solution":"Doesn´t contain solution");
+
 		canBeStream = deleteThisShit(canBeStream,latestGuess,cC,cP);
+		canBeList = canBeStream.toArray();
+		canBeStream = Arrays.stream(canBeList);
+		System.out.println(canBeList.length);
+		System.out.println(Arrays.stream(canBeList).filter(num -> num==strg.getAnswer()[0]*1000+strg.getAnswer()[1]*100+strg.getAnswer()[2]*10+strg.getAnswer()[3]).count()==1 ?"Contains Solution":"Doesn´t contain solution");
 		strg.guess(miniMax());
 	}
-	public IntStream filterStreamContain(IntStream intStream,int... filter){
+	public static IntStream filterStreamContain(IntStream intStream, int... filter){
 		IntStream fStream = intStream.filter(num ->{
-			int keep = 0;
-			for(int i : filter){
-				if (!String.valueOf(num).contains(String.valueOf(i))){
-					keep++;
-				}
+			String nums = String.valueOf(num);
+			for (int f : filter) {
+			nums = nums.replaceFirst(String.valueOf(f), "");
 			}
-            return keep >= filter.length;
+			return 4-nums.length() < filter.length;
         });
 
 		return fStream;
 	}
-	public IntStream filterStreamPosition(IntStream intStream,int[] filter){//0 als filtereitrag bedeutet Slot überspringen
+	public static IntStream filterStreamPosition(IntStream intStream,int[] filter){//0 als filtereitrag bedeutet Slot überspringen
 		IntStream fStream = intStream.filter(numIn ->{
 			int[] numarr = intToArray(numIn);
-for(int i = 0; i< 4;i++){
-if(numarr[i] == filter[i]){
-return false;
-}
-}
-return true;
+			int keep = 0;
+			for(int i = 0; i< 4;i++){
+				if(numarr[i] == filter[i] || filter[i] == 0){
+					keep++;
+				}
+			}
+			return keep < filter.length;
         });
 
 		return fStream;
@@ -119,9 +132,9 @@ return true;
 		canBeStream = Arrays.stream(canBeList);
 		int bestguess = 1111;
 		int lowestnum = 9999999;
-
 		for(int i : canBeList){
 			int worstcase = -1;
+			int add = 0;
 			for(int k=0; k < 14;k++){//weiß nicht ob 14 wxxx 1111
 				IntStream tempstream = Arrays.stream(canBeList);
 				int cC = -1; //correctColor
@@ -197,31 +210,25 @@ return true;
 						cP = 2;
 					}
 				}
-
-// cP = 0 und cC = 0 -> case 0
-// cP = 1 bis 3 cC = 0 -> cases 1 bis 3 -> case 1 ->{cC = 0; cP = 1;}
-// cP = 0 cC = 1 bis 4 -> cases 5 bis 8
-// cP = 3, cC = 1 -> case 9
-// cP = 2, cC = 2 -> case 10
-// cP = 1, cC = 3 -> case 11
 			tempstream = deleteThisShit(tempstream, intToArray(i),cC,cP);
 
 
 				int count = (int) tempstream.count();
+				add += count;
 				if(count >=worstcase){
 					worstcase = count;
 				}
 			}
+			int d = add/13;
 			if(worstcase < lowestnum){
 				bestguess = i;
 				lowestnum = worstcase;
 			}
 		}
-		System.out.println(lowestnum);
 		return intToArray(bestguess);
 
 	}
-	public int[] intToArray(int x){
+	public static int[] intToArray(int x){
 				int j = 0;
 				int size = Integer.toString(x).length();
 				int[] bguess = new int[size];
@@ -235,7 +242,9 @@ return true;
 
 	public IntStream deleteThisShit(IntStream streamIn, int[] guess, int cC, int cP ){
 		IntStream stream = streamIn;
-
+		if(cP <0 || cC < 0){
+			System.out.println("ERROR!!!!!!");
+		}
 if(cP ==0){
 			switch (cC) {
 				case 0 -> {
@@ -253,7 +262,7 @@ if(cP ==0){
 				case 2-> {
 					for (int i = 0; i < 2; i++) {
 						for (int k = i+1; k < 3; k++) {
-							for (int j = k+1; j < 4; j++) {
+							for (int j = k; j < 4; j++) {
 								stream = filterStreamContain(stream, guess[i], guess[k], guess[j]);
 							}
 						}
@@ -321,8 +330,9 @@ if(cP ==0){
 		=> Mach guess basierend auf geg. Pos + Farben
 		*/
 		if(cP < 4){
-		stream = filterStreamContain(stream,guess);
+		stream = filterStreamPosition(stream,guess);
 		}
+
 		return stream;
 	}
 }
