@@ -90,24 +90,24 @@ public class Solver {
 		IntStream fStream = intStream.filter(num ->{
 			int keep = 0;
 			for(int i : filter){
-				if (String.valueOf(num).contains(String.valueOf(i))){
+				if (!String.valueOf(num).contains(String.valueOf(i))){
 					keep++;
 				}
 			}
-            return keep != filter.length;
+            return keep >= filter.length;
         });
 
 		return fStream;
 	}
 	public IntStream filterStreamPosition(IntStream intStream,int[] filter){//0 als filtereitrag bedeutet Slot überspringen
-		IntStream fStream = intStream.filter(num ->{
-			for(int i = 3; i >= 0; i--) {
-				if(filter[i] == num % 10 && filter[i] <= 0){
-						return false;
-				}
-				num = num / 10;
-			}
-            return true;
+		IntStream fStream = intStream.filter(numIn ->{
+			int[] numarr = intToArray(numIn);
+for(int i = 0; i< 4;i++){
+if(num[i] == filter[i]){
+return false;
+}
+}
+return true;
         });
 
 		return fStream;
