@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 public class Solver {
 	private  Steuerung strg;
 	private static Random rand = new Random();
-	private boolean intelGuess = false;
+	private boolean intelGuess = true;
 
 	private boolean solverRunning = false;
 	private IntStream canBeStream;
@@ -82,62 +82,7 @@ public class Solver {
 		int cP = strg.getLatestGuess()[4]; //x
 		int cC = strg.getLatestGuess()[5]; //y
 		//p = 4
-
-
-		//Delete Welche nich sein können (Impossible cases){
-		if(cP ==0){
-		switch (cC) {
-			case 0 -> {
-				for (int i = 0; i < 4; i++) {
-					canBeStream = filterStreamContain(canBeStream, latestGuess[i]);
-				}
-			}
-			case 1 -> {
-				for (int i = 0; i < 3; i++) {
-					for (int k = i; k < 4; k++) {
-						canBeStream = filterStreamContain(canBeStream, latestGuess[i], latestGuess[k]);
-					}
-				}
-			}
-			case 2-> {
-				for (int i = 0; i < 2; i++) {
-					for (int k = i; k < 3; k++) {
-						for (int j = k; j < 4; j++) {
-							canBeStream = filterStreamContain(canBeStream, latestGuess[i], latestGuess[k], latestGuess[j]);
-						}
-					}
-				}
-			}
-			case 3,4 ->{
-				canBeStream = filterStreamContain(canBeStream, latestGuess);
-			}
-        }
-}
-
-		// Heuristische Methode zur Generierung des nächsten Zugs
-		// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
-
-
-// Lösch code, ohne paasende farbe.
-// Behalt alle codes die 1 oder mehr cC oder cP haben.
-// lösch alle codes, die weniger cP oder cC haben, als der latestGuess; latestGuess cP 3, cC 0 -> delete alle codes die weniger als cP = 3 haben.
-
-//Case 1 bis 3 lösch alle codes, welche cP < 1,2,3 haben, behalt alle restlichen codes. Sobald ein neuer guess mit den restlichen codes gemacht wurde, wiederhol das ganze.
-//ignorier cC
-
-
-		/*
-		s = 4096
-		1er guess = 1122
-
-		Falsche Farben -> Nichtmehr benutzen
-		Wenn nicht position: S - guess code z.B. rot,gelb,grün,blau -> Stimmt nur Farbe: Dump codes mit R,G,GR,B an falscher Stelle -> Speicher Farbe dann dump
-		Wenn x >= 1 -> dump nicht
-		Wenn y = 0 ->dump
-
-		=> Mach guess basierend auf geg. Pos + Farben
-		*/
-		//}
+		deleteThisShit(canBeStream,latestGuess,cC,cP);
 		strg.guess(miniMax());
 	}
 	public IntStream filterStreamContain(IntStream intStream,int... filter){
@@ -178,8 +123,8 @@ public class Solver {
 			int worstcase = -1;
 			for(int k=0; k < 14;k++){//weiß nicht ob 14 wxxx 1111
 				IntStream tempstream = Arrays.stream(canBeList);
-				int cC; //correctColor
-				int cP; //correctPosition
+				int cC = -1; //correctColor
+				int cP = -1; //correctPosition
 				//calc
 				switch(k){
 					case 0 -> {
@@ -258,6 +203,18 @@ public class Solver {
 // cP = 3, cC = 1 -> case 9
 // cP = 2, cC = 2 -> case 10
 // cP = 1, cC = 3 -> case 11
+deleteThisShit(tempstream, intToArray(i),cC,cP);
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -286,13 +243,95 @@ public class Solver {
 		return bguess;
 	}
 
+	public void deleteThisShit(IntStream stream, int[] guess, int cC, int cP ){
+		if(cP ==0){
+			switch (cC) {
+				case 0 -> {
+					for (int i = 0; i < 4; i++) {
+						stream = filterStreamContain(stream, guess[i]);
+					}
+				}
+				case 1 -> {
+					for (int i = 0; i < 3; i++){
+						for (int k = i+1; k < 4; k++) {
+							stream = filterStreamContain(stream, guess[i], guess[k]);
+						}
+					}
+				}
+				case 2-> {
+					for (int i = 0; i < 2; i++) {
+						for (int k = i+1; k < 3; k++) {
+							for (int j = k+1; j < 4; j++) {
+								stream = filterStreamContain(stream, guess[i], guess[k], guess[j]);
+							}
+						}
+					}
+				}
+				case 3,4 ->{
+					stream = filterStreamContain(stream, guess);
+				}
+			}
+		}
+// Heuristische Methode zur Generierung des nächsten Zugs
+// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
 
 
+// Lösch code, ohne paasende farbe.
+// Behalt alle codes die 1 oder mehr cC oder cP haben.
+// lösch alle codes, die weniger cP oder cC haben, als der latestGuess; latestGuess cP 3, cC 0 -> delete alle codes die weniger als cP = 3 haben.
 
+//Case 1 bis 3 lösch alle codes, welche cP < 1,2,3 haben, behalt alle restlichen codes. Sobald ein neuer guess mit den restlichen codes gemacht wurde, wiederhol das ganze.
+//ignorier cC
+//AMERICA YA :D ~Felix
 
+		switch(cP) {
+			case 0 -> {
+				for(int i = 0; i < 4; i++) {
+					int[] temp = new int[4];
+					temp[i] = guess[i];
+					stream = filterStreamPosition(stream, temp);
+				}
+			}
 
+			case 1 -> {
+				for (int i = 0; i < 3; i++) {
+					for (int k = i + 1; k < 4; k++) {
+						int[] temp = new int[4];
+						temp[i] = guess[i];
+						temp[k] = guess[k];
+						stream = filterStreamPosition(stream, temp);
 
+					}
+				}
+			}
 
+			case 2 -> {
+				for (int i = 0; i < 2; i++) {
+					for (int k = i+1; k < 3; k++) {
+						for (int j = k+1; j < 4; j++) {
+							int[] temp = new int[4];
+							temp[i] = guess[i];
+							temp[k] = guess[k];
+							temp[j] = guess[j];
+							stream = filterStreamPosition(stream, temp);
+						}
+					}
+				}
+			}
+		}
 
+		/*
+		s = 4096
+		1er guess = 1122
+
+		Falsche Farben -> Nichtmehr benutzen
+		Wenn nicht position: S - guess code z.B. rot,gelb,grün,blau -> Stimmt nur Farbe: Dump codes mit R,G,GR,B an falscher Stelle -> Speicher Farbe dann dump
+		Wenn x >= 1 -> dump nicht
+		Wenn y = 0 ->dump
+
+		=> Mach guess basierend auf geg. Pos + Farben
+		*/
+
+	}
 }
 
