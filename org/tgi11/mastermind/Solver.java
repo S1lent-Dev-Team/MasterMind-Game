@@ -122,7 +122,6 @@ public class Solver {
 
 		for(int i : canBeList){
 			int worstcase = -1;
-			int add = 0;
 			for(int k=0; k < 14;k++){//weiß nicht ob 14 wxxx 1111
 				IntStream tempstream = Arrays.stream(canBeList);
 				int cC = -1; //correctColor
