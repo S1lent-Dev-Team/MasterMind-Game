@@ -1,5 +1,4 @@
 package org.tgi11.mastermind.gui;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -7,12 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Scanner;
 
-/**
- * Beschreiben Sie hier die Klasse GameKey.
- *
- * @author (Ihr Name)
- * @version (eine Versionsnummer oder ein Datum)
- */
 public class Key extends KeyAdapter
 {
     Frame frame;
