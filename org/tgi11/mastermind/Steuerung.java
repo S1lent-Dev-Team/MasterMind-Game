@@ -36,13 +36,24 @@ public class Steuerung {
     }
 
     public void start(boolean playerguessing,Display d){
-        this.d = d;
-        this.playerguessing = playerguessing;
-        history = new int[maxguesscount][6];
-        gamestate = 0;
-        guessesmade = 0;
-		running = true;
-        solv.start(!playerguessing);
+        if (answer != null){
+            this.d = d;
+            this.playerguessing = playerguessing;
+            history = new int[maxguesscount][6];
+            gamestate = 0;
+            guessesmade = 0;
+            running = true;
+            solv.start(!playerguessing);
+        }else{
+            System.out.println("Error: Missing Colorcode. \n Trying again...");
+ //           try {
+   //             Thread.sleep(3000);
+     //       } catch (InterruptedException e) {
+       //         throw new RuntimeException(e);
+         //   }
+           // start(playerguessing, d);
+        }
+
     }
     public void stop(){
         running = false;

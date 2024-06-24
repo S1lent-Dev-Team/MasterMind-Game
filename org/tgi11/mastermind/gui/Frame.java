@@ -2,7 +2,6 @@ package org.tgi11.mastermind.gui;
 import org.tgi11.mastermind.GUI;
 import org.tgi11.mastermind.Solver;
 import org.tgi11.mastermind.Steuerung;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -104,8 +103,7 @@ public class Frame extends JFrame {
                 try {
                     Thread.sleep(1000);
                     if (!playerGuessing) {
-                        Solver solver = new Solver(strg);
-                        solver.start(false);
+
                         updateHistory();
                         updateStatusLabel();
                     }
