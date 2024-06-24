@@ -1,5 +1,7 @@
 package org.tgi11.mastermind.gui;
 
+import org.tgi11.mastermind.Display;
+import org.tgi11.mastermind.GUI;
 import org.tgi11.mastermind.Steuerung;
 
 import javax.swing.*;
@@ -15,10 +17,12 @@ public class ConfigFrame extends JFrame {
     private JButton submitButton, deleteButton;
     private static final int MAX_COLORS = 4;
     private final Steuerung steuerung;
+    private Display d;
 
-    public ConfigFrame(Steuerung steuerung) {
+    public ConfigFrame(Steuerung steuerung, Display display) {
         super("Farbwahl:");
         farbcodes = new ArrayList<>();
+        d = display;
         this.steuerung = steuerung;
         initUI();
     }
@@ -119,6 +123,7 @@ public class ConfigFrame extends JFrame {
 
     protected void submitColors(int[] colors) {
         steuerung.setAnswer(colors);
+        ((GUI)d).start = true;
     }
 }
 

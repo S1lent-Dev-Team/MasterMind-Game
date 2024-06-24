@@ -21,7 +21,7 @@ public class Steuerung {
         return guessesmade;
     }
     public int[][] getHistory(){
-        return history;
+        return history.clone();
     }
 	public int[] getLatestGuess(){
 		if(guessesmade == 0){
@@ -44,16 +44,7 @@ public class Steuerung {
             guessesmade = 0;
             running = true;
             solv.start(!playerguessing);
-        }else{
-            System.out.println("Error: Missing Colorcode. \n Trying again...");
- //           try {
-   //             Thread.sleep(3000);
-     //       } catch (InterruptedException e) {
-       //         throw new RuntimeException(e);
-         //   }
-           // start(playerguessing, d);
         }
-
     }
     public void stop(){
         running = false;
