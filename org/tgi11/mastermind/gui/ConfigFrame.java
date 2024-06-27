@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+// Collin
 public class ConfigFrame extends JFrame {
 
     private ArrayList<Integer> farbcodes;
@@ -38,7 +39,7 @@ public class ConfigFrame extends JFrame {
         buttonPanel.setLayout(new GridLayout(2, 4, 5, 5));
 
         String[] colorNames = {"Red", "Blue", "Yellow", "Green", "White", "Black", "Orange", "Brown"};
-        Color[] colors = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.WHITE, Color.BLACK, Color.ORANGE, new Color(165, 42, 42)};
+        Color[] colors = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.WHITE, Color.BLACK, Color.ORANGE, new Color(117, 59, 0)};
         int[] colorCodes = {1, 2, 3, 4, 5, 6, 7, 8};
 
         for (int i = 0; i < colorNames.length; i++) {

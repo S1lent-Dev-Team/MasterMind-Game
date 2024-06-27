@@ -8,6 +8,7 @@ import org.tgi11.mastermind.gui.Frame;
 
 import javax.swing.*;
 
+// Collin
 public class GUI extends Display{
     public GUI(Steuerung strg){
         super(strg);
