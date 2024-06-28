@@ -1,4 +1,5 @@
 package org.tgi11.mastermind;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -7,10 +8,12 @@ import java.util.Scanner;
 public class CLI extends Display {
     Scanner s;
     private HashMap<String,Integer> translator;
+    private ArrayList<Integer> allguesses;
     private static final String[] transback= new String[]{"filler","Red","Blue","Yellow","Green","White","Black","Orange","Brown"};
     public CLI(Steuerung strg) {
         super(strg);
         translator = new HashMap<>();
+        allguesses = new ArrayList<>();
         fillHash();
         s=new Scanner(System.in);
     }
@@ -133,6 +136,7 @@ public class CLI extends Display {
     public void draw() {
         System.out.print("\u000C");
         if(!strg.isRunning()) {
+            allguesses.add(strg.getGuesscount());
             if (strg.getGamestate() == -1) {
                 String loss = "Runde verloren! ";
                 if(playerguessing){
@@ -153,6 +157,7 @@ public class CLI extends Display {
                 System.out.println(count+". Guess: "+ codeToString(ix)+" "+multiprint("\u26AB",i[4])+multiprint("\u26AA",i[5])+multiprint("x",4-i[4]-i[5]));
             }
         }
+        System.out.println("Average: "+ allguesses.stream().mapToInt(val -> val).average().orElse(0)+" Max: "+ allguesses.stream().mapToInt(val -> val).max().orElse(0) +" Min: "+allguesses.stream().mapToInt(val -> val).max().orElse(0)+" Total: "+allguesses.size());
 
     }
     public String multiprint(String s,int times){

@@ -66,7 +66,7 @@ public class Solver {
 
 	public void systemWait() {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(3);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
@@ -88,7 +88,6 @@ public class Solver {
 		int cP = strg.getLatestGuess()[4]; //x
 		int cC = strg.getLatestGuess()[5]; //y
 		//p = 4
-
 
 		canBeStream = deleteThisShit(canBeStream,latestGuess,cC,cP);
 		int [] canBeList = canBeStream.toArray();
@@ -122,6 +121,47 @@ public class Solver {
 
 		return fStream;
 	}
+
+	public static IntStream filterStreamPegging(IntStream intStream,int[] filter,int cCin,int cPin){//0 als filtereitrag bedeutet Slot überspringen
+		IntStream fStream = intStream.filter(numIn ->{
+			int[] numarr = intToArray(numIn);
+			int cP = countCorrectPositions(numarr,filter);
+			int cC = countCorrectColors(numarr,filter)-cP;
+			return cP > cPin || (cC >= cCin && cP == cPin);
+		});
+
+		return fStream;
+
+	}
+
+	private static int countCorrectColors(int[] guess,int[] filter) {
+		int count = 0;
+		int[] answercopy = filter.clone();
+		for (int guesscolor : guess) {
+			for(int i = 0;i < answercopy.length;i++){
+				if (guesscolor == answercopy[i]) {
+					count++;
+					answercopy[i] = -1;
+					break;
+				}
+			}
+		}
+
+		return count;
+	}
+	private static int countCorrectPositions(int[] guess, int[] filter) {
+		int count = 0;
+		for (int i = 0; i < guess.length; i++) {
+			if (filter[i] == guess[i]) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+
+
+
 
 
 	public int[] miniMax(){
@@ -328,6 +368,9 @@ if(cP ==0){
 		*/
 		if(cP < 4){
 		stream = filterStreamPosition(stream,guess);
+		}
+		if(cC > 0 || cP > 0){
+			stream = filterStreamPegging(stream,guess,cC,cP);
 		}
 
 		return stream;
