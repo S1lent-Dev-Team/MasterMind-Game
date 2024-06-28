@@ -157,7 +157,7 @@ public class CLI extends Display {
                 System.out.println(count+". Guess: "+ codeToString(ix)+" "+multiprint("\u26AB",i[4])+multiprint("\u26AA",i[5])+multiprint("x",4-i[4]-i[5]));
             }
         }
-        System.out.println("Average: "+ allguesses.stream().mapToInt(val -> val).average().orElse(0)+" Max: "+ allguesses.stream().mapToInt(val -> val).max().orElse(0) +" Min: "+allguesses.stream().mapToInt(val -> val).max().orElse(0)+" Total: "+allguesses.size());
+        System.out.println("Average: "+ allguesses.stream().mapToInt(val -> val).average().orElse(0)+" Max: "+ allguesses.stream().mapToInt(val -> val).max().orElse(0) +" Min: "+allguesses.stream().mapToInt(val -> val).min().orElse(0)+" Total: "+allguesses.size());
 
     }
     public String multiprint(String s,int times){
