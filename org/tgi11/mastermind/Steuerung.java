@@ -7,7 +7,7 @@ public class Steuerung {
     private int[] answer;
     private boolean running = false;
     private int gamestate = 0;
-    private int maxguesscount = 16;
+    private int maxguesscount = 8;
     private int[][] history = new int[maxguesscount][6];
     private Solver solv;
     private Display d;
