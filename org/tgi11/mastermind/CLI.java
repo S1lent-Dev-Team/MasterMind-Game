@@ -8,12 +8,11 @@ import java.util.Scanner;
 public class CLI extends Display {
     Scanner s;
     private HashMap<String,Integer> translator;
-    private ArrayList<Integer> allguesses;
+    private int[] allguesses = new int[4];
     private static final String[] transback= new String[]{"filler","Red","Blue","Yellow","Green","White","Black","Orange","Brown"};
     public CLI(Steuerung strg) {
         super(strg);
         translator = new HashMap<>();
-        allguesses = new ArrayList<>();
         fillHash();
         s=new Scanner(System.in);
     }
@@ -113,6 +112,8 @@ public class CLI extends Display {
             System.out.println("Nennen Sie einen code zum Raten (Zahlen zwischen 1 und 8): ");
             int[] guess = new int[4];
             if (playerguessing) {
+
+
                 for (int i = 0; i < guess.length; i++) {
                     while (true) {
                         String st = s.next();
@@ -136,7 +137,11 @@ public class CLI extends Display {
     public void draw() {
         System.out.print("\u000C");
         if(!strg.isRunning()) {
-            allguesses.add(strg.getGuesscount());
+            allguesses[0]++;
+            allguesses[1] = (allguesses[1]*(allguesses[0]-1)+strg.getGuesscount())/allguesses[0];
+            allguesses[2] = Integer.max(allguesses[2],strg.getGuesscount());
+            allguesses[3] = Integer.min(allguesses[2],strg.getGuesscount());
+
             if (strg.getGamestate() == -1) {
                 String loss = "Runde verloren! ";
                 if(playerguessing){
@@ -157,7 +162,7 @@ public class CLI extends Display {
                 System.out.println(count+". Guess: "+ codeToString(ix)+" "+multiprint("\u26AB",i[4])+multiprint("\u26AA",i[5])+multiprint("x",4-i[4]-i[5]));
             }
         }
-        System.out.println("Average: "+ allguesses.stream().mapToInt(val -> val).average().orElse(0)+" Max: "+ allguesses.stream().mapToInt(val -> val).max().orElse(0) +" Min: "+allguesses.stream().mapToInt(val -> val).min().orElse(0)+" Total: "+allguesses.size());
+        System.out.println("Average: "+ allguesses[1]+" Max: "+ allguesses[2] +" Min: "+allguesses[3]+" Total: "+allguesses[0]);
 
     }
     public String multiprint(String s,int times){

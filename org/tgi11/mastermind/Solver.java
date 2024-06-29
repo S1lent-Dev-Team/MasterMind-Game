@@ -66,17 +66,9 @@ public class Solver {
 
 	public void systemWait() {
 		try {
-			Thread.sleep(3);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
-		}
-	}
-
-	public static void main(String[] args) {
-		IntStream scanBeStream = IntStream.rangeClosed(1111,2222);
-		scanBeStream = filterStreamContain(scanBeStream,1);
-		for(int i : scanBeStream.toArray()){
-			System.out.println(i);
 		}
 	}
 
@@ -90,10 +82,10 @@ public class Solver {
 		//p = 4
 
 		canBeStream = deleteThisShit(canBeStream,latestGuess,cC,cP);
-		int [] canBeList = canBeStream.toArray();
+		/*int [] canBeList = canBeStream.toArray();
 		canBeStream = Arrays.stream(canBeList);
 		System.out.println("Possible Solutions: "+canBeList.length);
-		System.out.println(Arrays.stream(canBeList).filter(num -> num==strg.getAnswer()[0]*1000+strg.getAnswer()[1]*100+strg.getAnswer()[2]*10+strg.getAnswer()[3]).count()==1 ?"Contains Solution":"Doesn´t contain solution");
+		System.out.println(Arrays.stream(canBeList).filter(num -> num==strg.getAnswer()[0]*1000+strg.getAnswer()[1]*100+strg.getAnswer()[2]*10+strg.getAnswer()[3]).count()==1 ?"Contains Solution":"Doesn´t contain solution");*/
 		strg.guess(miniMax());
 	}
 	public static IntStream filterStreamContain(IntStream intStream, int... filter){
@@ -281,9 +273,9 @@ public class Solver {
 		IntStream stream = streamIn;
 		if(cP <0 || cC < 0){
 			System.out.println("ERROR!!!!!!");
+			return stream;
 		}
-if(cP ==0){
-			switch (cC) {
+			switch (cC+cP) {
 				case 0 -> {
 					for (int i = 0; i < 4; i++) {
 						stream = filterStreamContain(stream, guess[i]);
@@ -299,14 +291,13 @@ if(cP ==0){
 				case 2-> {
 					for (int i = 0; i < 2; i++) {
 						for (int k = i+1; k < 3; k++) {
-							for (int j = k; j < 4; j++) {
+							for (int j = k+1; j < 4; j++) {
 								stream = filterStreamContain(stream, guess[i], guess[k], guess[j]);
 							}
 						}
 					}
 				}
 			}
-		}
 // Heuristische Methode zur Generierung des nächsten Zugs
 // Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
 
