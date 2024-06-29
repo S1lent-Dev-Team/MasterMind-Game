@@ -1,1 +1,1 @@
-java -jar out/MasterMind.jar
+java -jar result/MasterMind.jar
