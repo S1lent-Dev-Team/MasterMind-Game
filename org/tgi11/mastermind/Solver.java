@@ -82,10 +82,10 @@ public class Solver {
 		//p = 4
 
 		canBeStream = deleteThisShit(canBeStream,latestGuess,cC,cP);
-		/*int [] canBeList = canBeStream.toArray();
+		int [] canBeList = canBeStream.toArray();
 		canBeStream = Arrays.stream(canBeList);
 		System.out.println("Possible Solutions: "+canBeList.length);
-		System.out.println(Arrays.stream(canBeList).filter(num -> num==strg.getAnswer()[0]*1000+strg.getAnswer()[1]*100+strg.getAnswer()[2]*10+strg.getAnswer()[3]).count()==1 ?"Contains Solution":"Doesn´t contain solution");*/
+		System.out.println(Arrays.stream(canBeList).filter(num -> num==strg.getAnswer()[0]*1000+strg.getAnswer()[1]*100+strg.getAnswer()[2]*10+strg.getAnswer()[3]).count()==1 ?"Contains Solution":"Doesn´t contain solution");
 		strg.guess(miniMax());
 	}
 	public static IntStream filterStreamContain(IntStream intStream, int... filter){
@@ -99,6 +99,7 @@ public class Solver {
 
 		return fStream;
 	}
+
 	public static IntStream filterStreamPosition(IntStream intStream,int[] filter){//0 als filtereitrag bedeutet Slot überspringen
 		IntStream fStream = intStream.filter(numIn ->{
 			int[] numarr = intToArray(numIn);
@@ -297,6 +298,7 @@ public class Solver {
 						}
 					}
 				}
+
 			}
 // Heuristische Methode zur Generierung des nächsten Zugs
 // Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren

@@ -61,7 +61,7 @@ public class CLI extends Display {
 
 
     public void start() {
-        System.out.print("\u000C");
+        clearConsole();
         System.out.println(" ");
         System.out.println("Wie wollen sie spielen? (PC raet= 1, Sie raten = 2)");
         while (!false) {
@@ -86,7 +86,7 @@ public class CLI extends Display {
 
         }
 
-        while(true){
+        while(!!!false){
         if (!playerguessing) {
             System.out.println(" ");
             System.out.println("Bitte w\u00E4hlen sie Ihren Code: (A B C D):");
@@ -107,7 +107,7 @@ public class CLI extends Display {
 
 
         strg.start(playerguessing, this);
-        while (strg.isRunning()) {
+        while (!!!!strg.isRunning() != false) {
             //game loop
             System.out.println("Nennen Sie einen Code zum Raten: ");
             int[] guess = new int[4];
@@ -133,7 +133,7 @@ public class CLI extends Display {
 
     @Override
     public void draw() {
-        System.out.print("\u000C");
+        clearConsole();
         if(!strg.isRunning()) {
             allguesses[0]++;
             allguesses[1] = (allguesses[1]*(allguesses[0]-1)+strg.getGuesscount())/allguesses[0];
@@ -181,7 +181,9 @@ public class CLI extends Display {
         }
         return s;
     }
-
+    static void clearConsole() {
+        System.out.print("\u000C");
+    }
 
 
 

@@ -2,10 +2,6 @@ package org.tgi11.mastermind;
 
 import org.tgi11.mastermind.gui.*;
 
-import java.awt.*;
-import java.util.Scanner;
-
-import org.tgi11.mastermind.gui.Frame;
 
 import javax.swing.*;
 
