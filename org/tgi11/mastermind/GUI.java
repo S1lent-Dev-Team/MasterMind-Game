@@ -19,7 +19,7 @@ public boolean start = false;
     private PlayFrame playFrame;
     @Override
     public void start() {
-        playerguessing = false;//JOptionPane.showConfirmDialog(null, "Möchten Sie raten?", "Spielmodus", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+        playerguessing = JOptionPane.showConfirmDialog(null, "Möchten Sie raten?", "Spielmodus", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
         if(!playerguessing){
                 ConfigFrame frame = new ConfigFrame(strg, this);
                 frame.setVisible(true);
