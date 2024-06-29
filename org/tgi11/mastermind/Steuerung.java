@@ -36,7 +36,6 @@ public class Steuerung {
     }
 
     public void start(boolean playerguessing,Display d){
-        if (answer != null){
             this.d = d;
             this.playerguessing = playerguessing;
             history = new int[maxguesscount][6];
@@ -44,7 +43,6 @@ public class Steuerung {
             guessesmade = 0;
             running = true;
             solv.start(!playerguessing);
-        }
     }
     public void stop(){
         running = false;

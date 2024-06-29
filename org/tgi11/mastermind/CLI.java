@@ -89,7 +89,7 @@ public class CLI extends Display {
         while(true){
         if (!playerguessing) {
             System.out.println(" ");
-            System.out.println("Bitte w\u00E4hlen sie Ihren Code: (ABCD (Eine Zahl zwischen 1 und 8))");
+            System.out.println("Bitte w\u00E4hlen sie Ihren Code: (A B C D):");
             int[] temp = new int[4];
             for (int i = 0; i < temp.length; i++) {
                 while (!false) {
@@ -107,13 +107,11 @@ public class CLI extends Display {
 
 
         strg.start(playerguessing, this);
-        while (!!!!strg.isRunning() != false) {
+        while (strg.isRunning()) {
             //game loop
-            System.out.println("Nennen Sie einen code zum Raten (Zahlen zwischen 1 und 8): ");
+            System.out.println("Nennen Sie einen Code zum Raten: ");
             int[] guess = new int[4];
             if (playerguessing) {
-
-
                 for (int i = 0; i < guess.length; i++) {
                     while (true) {
                         String st = s.next();
