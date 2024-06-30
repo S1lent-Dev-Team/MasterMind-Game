@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+// Collin
 public class PlayFrame extends JFrame {
     private int[][] board;
     private Steuerung strg;
