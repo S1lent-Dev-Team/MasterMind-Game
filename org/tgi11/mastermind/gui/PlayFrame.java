@@ -1,5 +1,6 @@
 package org.tgi11.mastermind.gui;
 
+import org.tgi11.mastermind.GUI;
 import org.tgi11.mastermind.Steuerung;
 
 import javax.swing.*;
@@ -15,8 +16,8 @@ public class PlayFrame extends JFrame {
     private JPanel colorPanel;
     private JButton submitButton, deleteButton;
     private static final int MAX_COLORS = 4;
-    private String[] colorNames = {"Red", "Blue", "Yellow", "Green", "White", "Black", "Orange", "Brown"};
-    private Color[] colors = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.WHITE, Color.BLACK, Color.ORANGE, new Color(117, 59, 0)};
+    private String[] colorNames = {"Grey", "Red", "Blue", "Yellow", "Green", "White", "Black", "Orange", "Brown"};
+    private Color[] colors = {Color.GRAY, Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.WHITE, Color.BLACK, Color.ORANGE, new Color(117, 59, 0)};
     private JPanel boardPanel;
 
     public PlayFrame(Steuerung strg) {
@@ -39,10 +40,10 @@ public class PlayFrame extends JFrame {
         add(colorPanel, BorderLayout.SOUTH);
 
         JPanel buttonPanel = new JPanel(new GridLayout(2, 4, 5, 5));
-        for (int i = 0; i < colorNames.length; i++) {
+        for (int i = 1; i < colorNames.length; i++) {
             JButton colorButton = new JButton(colorNames[i]);
             colorButton.setBackground(colors[i]);
-            colorButton.addActionListener(new AddColorAction(colors[i], i + 1));
+            colorButton.addActionListener(new AddColorAction(colors[i], i));
             buttonPanel.add(colorButton);
         }
         add(buttonPanel, BorderLayout.NORTH);
@@ -78,6 +79,8 @@ public class PlayFrame extends JFrame {
                 colorLabel.setPreferredSize(new Dimension(50, 50));
                 colorPanel.add(colorLabel);
                 colorPanel.revalidate();
+                colorPanel.repaint();
+                updateHistory();
             } else {
                 JOptionPane.showMessageDialog(PlayFrame.this, "Maximal 4 Farben erlaubt!", "Fehler", JOptionPane.ERROR_MESSAGE);
             }
@@ -92,6 +95,7 @@ public class PlayFrame extends JFrame {
                 colorPanel.remove(colorPanel.getComponentCount() - 1);
                 colorPanel.revalidate();
                 colorPanel.repaint();
+                updateHistory();
             }
         }
     }
@@ -108,13 +112,20 @@ public class PlayFrame extends JFrame {
                 colorPanel.repaint();
                 updateHistory();
             } else {
-                JOptionPane.showMessageDialog(PlayFrame.this, "Der Computer braucht 4 Farben zum spielen!", "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(PlayFrame.this, "", "Fehler", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
     private void updateBoardPanel() {
         boardPanel.removeAll();
+        for(int i = 0; i<4;i++){
+            if(farbcodes.size() > i) {
+                board[strg.getGuesscount()][i] = farbcodes.get(i);
+            }else {
+                board[strg.getGuesscount()][i] = 0;
+            }
+        }
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.CENTER;
@@ -137,9 +148,9 @@ public class PlayFrame extends JFrame {
                     rowPanel.add(colorPanel);
                 }
 
-                JTextField hintField = new JTextField(20);
+                JTextField hintField = new JTextField(30);
                 hintField.setEditable(false);
-                hintField.setText("Richtige Position: " + board[i][4] + " Richtige Farbe: " + board[i][5]);
+                hintField.setText("Richtige Position und Farbe: " + board[i][4] + " Nur Richtige Farbe: " + board[i][5]);
                 rowPanel.add(hintField);
 
                 gbc.gridy = i;
@@ -153,9 +164,35 @@ public class PlayFrame extends JFrame {
 
     public void updateHistory() {
         board = strg.getHistory();
-        updateBoardPanel();
+        if (strg.isRunning()){
+            updateBoardPanel();
+        }else {
+            switch (strg.getGamestate()) {
+                case 1 -> {
+                    Object[] options = {"Nochmals versuchen", "Schließen"};
+                    int result = JOptionPane.showOptionDialog(null, "Du hast gewonnen!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
+                    );
+                    if (result == JOptionPane.YES_OPTION) {
+                        dispose();
+                        GUI gui = new GUI(strg);
+                    } else if (result == JOptionPane.NO_OPTION) {
+                        dispose();
+                    }
+                }
+                case -1 -> {
+                    Object[] options = {"Nochmals versuchen", "Schließen"};
+                    int result = JOptionPane.showOptionDialog(null, "Du hast leider verloren!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
+                    );
+                    if (result == JOptionPane.YES_OPTION) {
+                        dispose();
+                        GUI gui = new GUI(strg);
+                    } else if (result == JOptionPane.NO_OPTION) {
+                        dispose();
+                    }
+                }
+            }
+        }
     }
-
     public void update() {
         updateHistory();
     }

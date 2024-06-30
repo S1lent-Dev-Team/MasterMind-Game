@@ -1,5 +1,6 @@
 package org.tgi11.mastermind.gui;
 
+import org.tgi11.mastermind.GUI;
 import org.tgi11.mastermind.Steuerung;
 
 import javax.swing.*;
@@ -76,7 +77,34 @@ public class ComFrame extends JFrame {
 
     public void updateHistory() {
         board = strg.getHistory();
-        updateBoardPanel();
+        if (strg.isRunning()){
+            updateBoardPanel();
+        }else {
+            switch (strg.getGamestate()) {
+                case 1 -> {
+                    Object[] options = {"Nochmals versuchen", "Schließen"};
+                    int result = JOptionPane.showOptionDialog(null, "Computer hat gewonnen!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
+                    );
+                    if (result == JOptionPane.YES_OPTION) {
+                        dispose();
+                        GUI gui = new GUI(strg);
+                    } else if (result == JOptionPane.NO_OPTION) {
+                        dispose();
+                    }
+                }
+                case -1 -> {
+                    Object[] options = {"Nochmals versuchen", "Schließen"};
+                    int result = JOptionPane.showOptionDialog(null, "Computer hat verloren!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
+                    );
+                    if (result == JOptionPane.YES_OPTION) {
+                        dispose();
+                        GUI gui = new GUI(strg);
+                    } else if (result == JOptionPane.NO_OPTION) {
+                        dispose();
+                    }
+                }
+            }
+        }
     }
 
     public void update() {
