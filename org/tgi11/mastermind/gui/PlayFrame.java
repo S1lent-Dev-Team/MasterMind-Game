@@ -1,5 +1,6 @@
 package org.tgi11.mastermind.gui;
 
+import org.tgi11.mastermind.Display;
 import org.tgi11.mastermind.GUI;
 import org.tgi11.mastermind.Steuerung;
 
@@ -20,10 +21,12 @@ public class PlayFrame extends JFrame {
     private String[] colorNames = {"Grey", "Red", "Blue", "Yellow", "Green", "White", "Black", "Orange", "Brown"};
     private Color[] colors = {Color.GRAY, Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.WHITE, Color.BLACK, Color.ORANGE, new Color(117, 59, 0)};
     private JPanel boardPanel;
+    private Display d;
 
-    public PlayFrame(Steuerung strg) {
+    public PlayFrame(Steuerung strg, Display display) {
         super("Mastermind Spiel");
         this.strg = strg;
+        this.d = display;
         farbcodes = new ArrayList<>();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 800);
@@ -120,11 +123,13 @@ public class PlayFrame extends JFrame {
 
     private void updateBoardPanel() {
         boardPanel.removeAll();
-        for(int i = 0; i<4;i++){
-            if(farbcodes.size() > i) {
-                board[strg.getGuesscount()][i] = farbcodes.get(i);
-            }else {
-                board[strg.getGuesscount()][i] = 0;
+        if(strg.getGuesscount() < board.length) {
+            for (int i = 0; i < 6; i++) {
+                if (farbcodes.size() > i) {
+                    board[strg.getGuesscount()][i] = farbcodes.get(i);
+                } else {
+                    board[strg.getGuesscount()][i] = 0;
+                }
             }
         }
         GridBagConstraints gbc = new GridBagConstraints();
@@ -148,11 +153,27 @@ public class PlayFrame extends JFrame {
                     colorPanel.setPreferredSize(new Dimension(colWidth, rowHeight));
                     rowPanel.add(colorPanel);
                 }
-
-                JTextField hintField = new JTextField(30);
-                hintField.setEditable(false);
-                hintField.setText("Richtige Position und Farbe: " + board[i][4] + " Nur Richtige Farbe: " + board[i][5]);
-                rowPanel.add(hintField);
+                JPanel pegPanel = new JPanel();
+                pegPanel.setLayout(new GridLayout(2,2,2,2));
+                int cP = board[i][4];
+                int cC = board[i][5];
+                for (int j = 0; j < 4; j++) {
+                    JPanel colorPanel = new JPanel();
+                    Color c;
+                    if(cP > 0){
+                        c = Color.BLACK;
+                        cP--;
+                    }else if(cC > 0){
+                        c = Color.WHITE;
+                        cC--;
+                    }else{
+                        c= Color.GRAY;
+                    }
+                    colorPanel.setBackground(c);
+                    colorPanel.setPreferredSize(new Dimension(colWidth/2-2, rowHeight/2-2));
+                    pegPanel.add(colorPanel);
+                }
+                rowPanel.add(pegPanel);
 
                 gbc.gridy = i;
                 boardPanel.add(rowPanel, gbc);
@@ -186,7 +207,6 @@ public class PlayFrame extends JFrame {
                     );
                     if (result == JOptionPane.YES_OPTION) {
                         dispose();
-                        GUI gui = new GUI(strg);
                     } else if (result == JOptionPane.NO_OPTION) {
                         dispose();
                     }

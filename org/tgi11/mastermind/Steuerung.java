@@ -71,6 +71,7 @@ public class Steuerung {
             }else{
                 gamestate = -1;
             }
+            d.draw();
             return;
         }
         else if(guessesmade == maxguesscount){
@@ -81,7 +82,9 @@ public class Steuerung {
             }else{
                 gamestate = 1;
             }
+            d.draw();
             return;
+
         }
 
 		

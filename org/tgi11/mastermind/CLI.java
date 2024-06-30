@@ -8,11 +8,12 @@ import java.util.Scanner;
 public class CLI extends Display {
     Scanner s;
     private HashMap<String,Integer> translator;
-    private int[] allguesses = new int[4];
+    private ArrayList<Integer> allguesses;
     private static final String[] transback= new String[]{"filler","Red","Blue","Yellow","Green","White","Black","Orange","Brown"};
     public CLI(Steuerung strg) {
         super(strg);
         translator = new HashMap<>();
+        allguesses = new ArrayList<>();
         fillHash();
         s=new Scanner(System.in);
     }
@@ -126,7 +127,6 @@ public class CLI extends Display {
                 strg.guess(guess);
             }
         }
-        draw();
         strg.stop();
     }
     }
@@ -135,10 +135,6 @@ public class CLI extends Display {
     public void draw() {
         clearConsole();
         if(!strg.isRunning()) {
-            allguesses[0]++;
-            allguesses[1] = (allguesses[1]*(allguesses[0]-1)+strg.getGuesscount())/allguesses[0];
-            allguesses[2] = Integer.max(allguesses[2],strg.getGuesscount());
-            allguesses[3] = Integer.min(allguesses[2],strg.getGuesscount());
 
             if (strg.getGamestate() == -1) {
                 String loss = "Runde verloren! ";
@@ -160,7 +156,7 @@ public class CLI extends Display {
                 System.out.println(count+". Guess: "+ codeToString(ix)+" "+multiprint("\u26AB",i[4])+multiprint("\u26AA",i[5])+multiprint("x",4-i[4]-i[5]));
             }
         }
-        System.out.println("Average: "+ allguesses[1]+" Max: "+ allguesses[2] +" Min: "+allguesses[3]+" Total: "+allguesses[0]);
+        System.out.println("Average: "+ allguesses.stream().mapToInt(var->var).average().orElse(0)+" Max: "+ allguesses.stream().mapToInt(var->var).max().orElse(0) +" Min: "+allguesses.stream().mapToInt(var->var).min().orElse(0)+" Total: "+allguesses.size());
 
     }
     public String multiprint(String s,int times){

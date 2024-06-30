@@ -10,18 +10,20 @@ public class GUI extends Display{
     public GUI(Steuerung strg){
         super(strg);
 }
-public boolean start = false;
-    private ComFrame comFrame;
-    private PlayFrame playFrame;
+    public boolean start = false;
+    private JFrame frame;
     @Override
     public void start() {
+        while (true){
         playerguessing = JOptionPane.showConfirmDialog(null, "Möchten Sie raten?", "Spielmodus", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+
         if(!playerguessing){
-                ConfigFrame frame = new ConfigFrame(strg, this);
-                frame.setVisible(true);
+                ConfigFrame configFrame = new ConfigFrame(strg, this);
+                configFrame.setVisible(true);
             while (true){
                 if(start){
-                    comFrame = new ComFrame(strg);
+                    start = false;
+                    frame = new ComFrame(strg,this);
                 strg.start(false, this);
 
                 break;}
@@ -31,20 +33,58 @@ public boolean start = false;
                     throw new RuntimeException(e);
                 }
             }
+            while (strg.isRunning()){
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
 
         }else{
             strg.start(true, this);
-            playFrame = new PlayFrame(strg);
+            frame = new PlayFrame(strg,this);
         }
-
+            switch (strg.getGamestate()) {
+                case 1 -> {
+                    Object[] options = {"Nochmals versuchen", "Schließen"};
+                    int result = JOptionPane.showOptionDialog(null, "Computer hat gewonnen!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
+                    );
+                    if (result == JOptionPane.YES_OPTION) {
+                        frame.dispose();
+                        GUI gui = new GUI(strg);
+                    } else if (result == JOptionPane.NO_OPTION) {
+                        frame.dispose();
+                        System.exit(0);
+                    }
+                }
+                case -1 -> {
+                    Object[] options = {"Nochmals versuchen", "Schließen"};
+                    int result = JOptionPane.showOptionDialog(null, "Computer hat verloren!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
+                    );
+                    if (result == JOptionPane.YES_OPTION) {
+                        frame.dispose();
+                    } else if (result == JOptionPane.NO_OPTION) {
+                        frame.dispose();
+                        System.exit(0);
+                    }
+                }
+                default ->{
+                    System.out.println("ERROR");
+                    System.exit(10);
+                }
+            }
+    }
     }
 
     @Override
     public void draw() {
         if(!playerguessing){
-            comFrame.update();
+            ((ComFrame) frame).update();
         }else {
-            playFrame.update();
+            ((PlayFrame) frame).update();
         }
     }
+
 }

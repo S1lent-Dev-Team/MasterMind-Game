@@ -1,5 +1,6 @@
 package org.tgi11.mastermind.gui;
 
+import org.tgi11.mastermind.Display;
 import org.tgi11.mastermind.GUI;
 import org.tgi11.mastermind.Steuerung;
 
@@ -20,10 +21,12 @@ public class ComFrame extends JFrame {
     private Color[] colors = {Color.GRAY, Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.WHITE, Color.BLACK, Color.ORANGE, new Color(117, 59, 0)};
 
     private JPanel boardPanel;
+    private Display d;
 
-    public ComFrame(Steuerung strg) {
+    public ComFrame(Steuerung strg, Display display) {
         super("Mastermind Spiel");
         this.strg = strg;
+        this.d = display;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 800);
         setLayout(new BorderLayout());
@@ -79,31 +82,6 @@ public class ComFrame extends JFrame {
         board = strg.getHistory();
         if (strg.isRunning()){
             updateBoardPanel();
-        }else {
-            switch (strg.getGamestate()) {
-                case 1 -> {
-                    Object[] options = {"Nochmals versuchen", "Schließen"};
-                    int result = JOptionPane.showOptionDialog(null, "Computer hat gewonnen!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
-                    );
-                    if (result == JOptionPane.YES_OPTION) {
-                        dispose();
-                        GUI gui = new GUI(strg);
-                    } else if (result == JOptionPane.NO_OPTION) {
-                        dispose();
-                    }
-                }
-                case -1 -> {
-                    Object[] options = {"Nochmals versuchen", "Schließen"};
-                    int result = JOptionPane.showOptionDialog(null, "Computer hat verloren!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
-                    );
-                    if (result == JOptionPane.YES_OPTION) {
-                        dispose();
-                        GUI gui = new GUI(strg);
-                    } else if (result == JOptionPane.NO_OPTION) {
-                        dispose();
-                    }
-                }
-            }
         }
     }
 
