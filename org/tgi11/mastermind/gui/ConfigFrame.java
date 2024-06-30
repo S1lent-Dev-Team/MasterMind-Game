@@ -56,11 +56,11 @@ public class ConfigFrame extends JFrame {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout());
 
-        deleteButton = new JButton("Löschen");
+        deleteButton = new JButton("LÃ¶schen");
         deleteButton.addActionListener(new DeleteColorAction());
         controlPanel.add(deleteButton);
 
-        submitButton = new JButton("Bestätigen");
+        submitButton = new JButton("BestÃ¤tigen");
         submitButton.addActionListener(new SubmitColorsAction());
         controlPanel.add(submitButton);
 

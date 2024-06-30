@@ -15,7 +15,7 @@ public boolean start = false;
     private PlayFrame playFrame;
     @Override
     public void start() {
-        playerguessing = JOptionPane.showConfirmDialog(null, "Möchten Sie raten?", "Spielmodus", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+        playerguessing = true;//JOptionPane.showConfirmDialog(null, "Möchten Sie raten?", "Spielmodus", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
         if(!playerguessing){
                 ConfigFrame frame = new ConfigFrame(strg, this);
                 frame.setVisible(true);
@@ -34,7 +34,7 @@ public boolean start = false;
 
         }else{
             strg.start(true, this);
-            playFrame = new PlayFrame();
+            playFrame = new PlayFrame(strg);
         }
 
     }
@@ -44,7 +44,7 @@ public boolean start = false;
         if(!playerguessing){
             comFrame.update();
         }else {
-
+            playFrame.update();
         }
     }
 
