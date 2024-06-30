@@ -1,8 +1,6 @@
 package org.tgi11.mastermind;
 
 import org.tgi11.mastermind.gui.*;
-
-
 import javax.swing.*;
 
 // Collin
@@ -25,7 +23,6 @@ public class GUI extends Display{
                     start = false;
                     frame = new ComFrame(strg,this);
                 strg.start(false, this);
-
                 break;}
                 try {
                     Thread.sleep(500);
@@ -33,8 +30,6 @@ public class GUI extends Display{
                     throw new RuntimeException(e);
                 }
             }
-
-
         }else{
             strg.start(true, this);
             frame = new PlayFrame(strg,this);
@@ -75,7 +70,7 @@ public class GUI extends Display{
                     System.exit(10);
                 }
             }
-    }
+        }
     }
 
     @Override

@@ -1,16 +1,11 @@
 package org.tgi11.mastermind.gui;
 
 import org.tgi11.mastermind.Display;
-import org.tgi11.mastermind.GUI;
 import org.tgi11.mastermind.Steuerung;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
-// Collin
-import javax.swing.*;
-import java.awt.*;
 
 //Collin
 public class ComFrame extends JFrame {
