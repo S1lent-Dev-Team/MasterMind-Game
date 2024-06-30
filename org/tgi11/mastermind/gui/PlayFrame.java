@@ -5,6 +5,7 @@ import org.tgi11.mastermind.GUI;
 import org.tgi11.mastermind.Steuerung;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -109,8 +110,8 @@ public class PlayFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
             int[] colorArray = farbcodes.stream().mapToInt(Integer::intValue).toArray();
             if (colorArray.length == 4) {
-                strg.guess(colorArray);
                 farbcodes.clear();
+                strg.guess(colorArray);
                 colorPanel.removeAll();
                 colorPanel.revalidate();
                 colorPanel.repaint();
@@ -150,6 +151,11 @@ public class PlayFrame extends JFrame {
                 for (int j = 0; j < 4; j++) {
                     JPanel colorPanel = new JPanel();
                     colorPanel.setBackground(colors[board[i][j]]);
+                    if(i == strg.getGuesscount()) {
+                        colorPanel.setBorder(new LineBorder(Color.red, 2));
+                    }else if(i < strg.getGuesscount()) {
+                        colorPanel.setBorder(new LineBorder(Color.DARK_GRAY, 2));
+                    }
                     colorPanel.setPreferredSize(new Dimension(colWidth, rowHeight));
                     rowPanel.add(colorPanel);
                 }
@@ -188,30 +194,31 @@ public class PlayFrame extends JFrame {
         board = strg.getHistory();
         if (strg.isRunning()){
             updateBoardPanel();
-        }else {
-            switch (strg.getGamestate()) {
-                case 1 -> {
-                    Object[] options = {"Nochmals versuchen", "Schließen"};
-                    int result = JOptionPane.showOptionDialog(null, "Du hast gewonnen!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
-                    );
-                    if (result == JOptionPane.YES_OPTION) {
-                        dispose();
-                        GUI gui = new GUI(strg);
-                    } else if (result == JOptionPane.NO_OPTION) {
-                        dispose();
-                    }
-                }
-                case -1 -> {
-                    Object[] options = {"Nochmals versuchen", "Schließen"};
-                    int result = JOptionPane.showOptionDialog(null, "Du hast leider verloren!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
-                    );
-                    if (result == JOptionPane.YES_OPTION) {
-                        dispose();
-                    } else if (result == JOptionPane.NO_OPTION) {
-                        dispose();
-                    }
-                }
+        }else{
+            boardPanel.removeAll();
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
+            gbc.anchor = GridBagConstraints.CENTER;
+            gbc.gridx = 0;
+            int rowHeight = 50;
+            int colWidth = 50;
+            int displayLimit = 8;
+            int displayCount = Math.min(displayLimit, board.length);
+            JTextPane textField = new JTextPane();
+            textField.setText("Die richtige Antwort war:");
+            gbc.gridy = 0;
+            boardPanel.add(textField,gbc);
+            JPanel rowPanel = new JPanel();
+            rowPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+
+            for (int j = 0; j < 4; j++) {
+                JPanel colorPanel = new JPanel();
+                colorPanel.setBackground(colors[strg.getAnswer()[j]]);
+                colorPanel.setPreferredSize(new Dimension(colWidth, rowHeight));
+                rowPanel.add(colorPanel);
             }
+            gbc.gridy = 1;
+            boardPanel.add(rowPanel, gbc);
         }
     }
     public void update() {

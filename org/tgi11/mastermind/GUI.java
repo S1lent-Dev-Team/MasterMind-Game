@@ -33,6 +33,11 @@ public class GUI extends Display{
                     throw new RuntimeException(e);
                 }
             }
+
+
+        }else{
+            strg.start(true, this);
+            frame = new PlayFrame(strg,this);
             while (strg.isRunning()){
                 try {
                     Thread.sleep(1000);
@@ -40,11 +45,6 @@ public class GUI extends Display{
                     throw new RuntimeException(e);
                 }
             }
-
-
-        }else{
-            strg.start(true, this);
-            frame = new PlayFrame(strg,this);
         }
             switch (strg.getGamestate()) {
                 case 1 -> {

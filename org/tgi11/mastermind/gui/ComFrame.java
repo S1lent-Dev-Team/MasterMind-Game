@@ -49,7 +49,6 @@ public class ComFrame extends JFrame {
             int colWidth = 50;
             int displayLimit = 8;
 
-            int startIndex = Math.max(0, board.length - displayLimit);
             int displayCount = Math.min(displayLimit, board.length);
 
             for (int i = 0; i < displayCount; i++) {
@@ -64,12 +63,29 @@ public class ComFrame extends JFrame {
                     rowPanel.add(colorPanel);
                 }
 
-                JTextField hintField = new JTextField(20);
-                hintField.setEditable(false);
-                hintField.setText("Richtige Position: " + board[boardIndex][4] + " Richtige Farbe: " + board[boardIndex][5]);
-                rowPanel.add(hintField);
+                JPanel pegPanel = new JPanel();
+                pegPanel.setLayout(new GridLayout(2,2,2,2));
+                int cP = board[i][4];
+                int cC = board[i][5];
+                for (int j = 0; j < 4; j++) {
+                    JPanel colorPanel = new JPanel();
+                    Color c;
+                    if(cP > 0){
+                        c = Color.BLACK;
+                        cP--;
+                    }else if(cC > 0){
+                        c = Color.WHITE;
+                        cC--;
+                    }else{
+                        c= Color.GRAY;
+                    }
+                    colorPanel.setBackground(c);
+                    colorPanel.setPreferredSize(new Dimension(colWidth/2-2, rowHeight/2-2));
+                    pegPanel.add(colorPanel);
+                }
+                rowPanel.add(pegPanel);
 
-                gbc.gridy = i;
+                gbc.gridy = i+1;
                 boardPanel.add(rowPanel, gbc);
             }
         }
