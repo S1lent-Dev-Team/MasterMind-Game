@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-// Felix,Collin bisschen schlechter code, Jonas
+
 public class Solver {
 	private  Steuerung strg;
 	private static Random rand = new Random();
@@ -25,21 +25,22 @@ public class Solver {
 
 	public void start(boolean comguessing) {
 		solverRunning = true;
-		canBeStream = IntStream.rangeClosed(1111,8888);
-		canBeStream = filterStreamContain(canBeStream,0);
-		canBeStream = filterStreamContain(canBeStream,9);
+		canBeStream = IntStream.rangeClosed(1111, 8888);
+		canBeStream = filterStreamContain(canBeStream, 0);
+		canBeStream = filterStreamContain(canBeStream, 9);
+		//Collin{
 		if (comguessing) {
-			if(intelGuess){
-			int x = rand.nextInt(6)+1;
-			strg.guess(new int[]{x,x,x+1,x+1});
-			}else {
+			if (intelGuess) {
+				int x = rand.nextInt(6) + 1;
+				strg.guess(new int[]{x, x, x + 1, x + 1});
+			} else {
 				randomGuess();
 			}
 			while (strg.isRunning()) {
 				systemWait();
 				if (intelGuess) {
 					intelligentGuess();
-				} else{
+				} else {
 					randomGuess();
 				}
 			}
@@ -48,8 +49,9 @@ public class Solver {
 			strg.setAnswer(code);
 		}
 		solverRunning = false;
+	//}
 	}
-
+	//Collin{
 	public void randomGuess() {
 		int[] code = generateRandomCode();
 		strg.guess(code);
@@ -71,9 +73,9 @@ public class Solver {
 			throw new RuntimeException(e);
 		}
 	}
+	//}
 
-
-
+	//Jonas{
 	// Intelligenter Mastermind Algorithmus zur Generierung des nächsten Zugs basierend auf den Rückmeldungen des Spiels
 	public void intelligentGuess() {
 		int[] latestGuess = Arrays.stream(strg.getLatestGuess()).limit(4).toArray();
@@ -151,9 +153,9 @@ public class Solver {
 		}
 		return count;
 	}
+//}
 
-
-
+//Felix{
 
 
 
@@ -165,7 +167,7 @@ public class Solver {
 		for(int i : canBeList){
 			int worstcase = -1;
 			int add = 0;
-			for(int k=0; k < 14;k++){//weiß nicht ob 14 wxxx 1111
+			for(int k=0; k < 14;k++){
 				IntStream tempstream = Arrays.stream(canBeList);
 				int cC = -1; //correctColor
 				int cP = -1; //correctPosition
@@ -300,17 +302,6 @@ public class Solver {
 				}
 
 			}
-// Heuristische Methode zur Generierung des nächsten Zugs
-// Beispiel: Wähle die häufigsten Farben aus, die nicht bereits in der letzten Vermutung enthalten waren
-
-
-// Lösch code, ohne paasende farbe.
-// Behalt alle codes die 1 oder mehr cC oder cP haben.
-// lösch alle codes, die weniger cP oder cC haben, als der latestGuess; latestGuess cP 3, cC 0 -> delete alle codes die weniger als cP = 3 haben.
-
-//Case 1 bis 3 lösch alle codes, welche cP < 1,2,3 haben, behalt alle restlichen codes. Sobald ein neuer guess mit den restlichen codes gemacht wurde, wiederhol das ganze.
-//ignorier cC
-//AMERICA YA :D ~Felix
 
 		switch(cP) {
 			case 0 -> {
@@ -348,17 +339,6 @@ public class Solver {
 			}
 		}
 
-		/*
-		s = 4096
-		1er guess = 1122
-
-		Falsche Farben -> Nichtmehr benutzen
-		Wenn nicht position: S - guess code z.B. rot,gelb,grün,blau -> Stimmt nur Farbe: Dump codes mit R,G,GR,B an falscher Stelle -> Speicher Farbe dann dump
-		Wenn x >= 1 -> dump nicht
-		Wenn y = 0 ->dump
-
-		=> Mach guess basierend auf geg. Pos + Farben
-		*/
 		if(cP < 4){
 		stream = filterStreamPosition(stream,guess);
 		}
@@ -369,4 +349,4 @@ public class Solver {
 		return stream;
 	}
 }
-
+//}

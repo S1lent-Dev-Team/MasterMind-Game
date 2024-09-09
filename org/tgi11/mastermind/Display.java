@@ -1,6 +1,7 @@
 package org.tgi11.mastermind;
 
 
+//Jonas
 public abstract class Display{
 	protected Steuerung strg;
 	protected boolean playerguessing = false;

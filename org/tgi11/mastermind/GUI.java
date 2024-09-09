@@ -44,11 +44,11 @@ public class GUI extends Display{
             switch (strg.getGamestate()) {
                 case 1 -> {
                     Object[] options = {"Nochmals versuchen", "Schließen"};
-                    int result = JOptionPane.showOptionDialog(null, "Computer hat gewonnen!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
+                    int result = JOptionPane.showOptionDialog(null, "Sie haben gewonnen!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
                     );
                     if (result == JOptionPane.YES_OPTION) {
+                        strg.stop();
                         frame.dispose();
-                        GUI gui = new GUI(strg);
                     } else if (result == JOptionPane.NO_OPTION) {
                         frame.dispose();
                         System.exit(0);
@@ -56,9 +56,10 @@ public class GUI extends Display{
                 }
                 case -1 -> {
                     Object[] options = {"Nochmals versuchen", "Schließen"};
-                    int result = JOptionPane.showOptionDialog(null, "Computer hat verloren!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
+                    int result = JOptionPane.showOptionDialog(null, "Sie haben verloren!", "Spiel beendet", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]
                     );
                     if (result == JOptionPane.YES_OPTION) {
+                        strg.stop();
                         frame.dispose();
                     } else if (result == JOptionPane.NO_OPTION) {
                         frame.dispose();

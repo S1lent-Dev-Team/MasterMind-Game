@@ -31,7 +31,7 @@ public class ComFrame extends JFrame {
 
         setVisible(true);
     }
-
+    //Collin
     private void updateBoardPanel() {
         boardPanel.removeAll();
         GridBagConstraints gbc = new GridBagConstraints();
@@ -57,7 +57,7 @@ public class ComFrame extends JFrame {
                     colorPanel.setPreferredSize(new Dimension(colWidth, rowHeight));
                     rowPanel.add(colorPanel);
                 }
-
+                //Jonas{
                 JPanel pegPanel = new JPanel();
                 pegPanel.setLayout(new GridLayout(2,2,2,2));
                 int cP = board[i][4];
@@ -79,6 +79,7 @@ public class ComFrame extends JFrame {
                     pegPanel.add(colorPanel);
                 }
                 rowPanel.add(pegPanel);
+                //}
 
                 gbc.gridy = i+1;
                 boardPanel.add(rowPanel, gbc);

@@ -133,6 +133,7 @@ public class PlayFrame extends JFrame {
                 }
             }
         }
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.CENTER;
@@ -159,6 +160,7 @@ public class PlayFrame extends JFrame {
                     colorPanel.setPreferredSize(new Dimension(colWidth, rowHeight));
                     rowPanel.add(colorPanel);
                 }
+                //Jonas{
                 JPanel pegPanel = new JPanel();
                 pegPanel.setLayout(new GridLayout(2,2,2,2));
                 int cP = board[i][4];
@@ -180,6 +182,7 @@ public class PlayFrame extends JFrame {
                     pegPanel.add(colorPanel);
                 }
                 rowPanel.add(pegPanel);
+                //}
 
                 gbc.gridy = i;
                 boardPanel.add(rowPanel, gbc);
@@ -194,7 +197,8 @@ public class PlayFrame extends JFrame {
         board = strg.getHistory();
         if (strg.isRunning()){
             updateBoardPanel();
-        }else{
+        }else {
+            //Jonas{
             boardPanel.removeAll();
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(5, 5, 5, 5);
@@ -207,7 +211,7 @@ public class PlayFrame extends JFrame {
             JTextPane textField = new JTextPane();
             textField.setText("Die richtige Antwort war:");
             gbc.gridy = 0;
-            boardPanel.add(textField,gbc);
+            boardPanel.add(textField, gbc);
             JPanel rowPanel = new JPanel();
             rowPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
@@ -219,6 +223,7 @@ public class PlayFrame extends JFrame {
             }
             gbc.gridy = 1;
             boardPanel.add(rowPanel, gbc);
+            //}
         }
     }
     public void update() {
