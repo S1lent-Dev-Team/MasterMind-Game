@@ -28,7 +28,7 @@ public class Solver {
 		canBeStream = IntStream.rangeClosed(1111, 8888);
 		canBeStream = filterStreamContain(canBeStream, 0);
 		canBeStream = filterStreamContain(canBeStream, 9);
-		//Collin{
+		
 		if (comguessing) {
 			if (intelGuess) {
 				int x = rand.nextInt(6) + 1;
@@ -49,9 +49,9 @@ public class Solver {
 			strg.setAnswer(code);
 		}
 		solverRunning = false;
-	//}
+
 	}
-	//Collin{
+
 	public void randomGuess() {
 		int[] code = generateRandomCode();
 		strg.guess(code);
@@ -73,9 +73,9 @@ public class Solver {
 			throw new RuntimeException(e);
 		}
 	}
-	//}
 
-	//Jonas{
+
+
 	// Intelligenter Mastermind Algorithmus zur Generierung des nächsten Zugs basierend auf den Rückmeldungen des Spiels
 	public void intelligentGuess() {
 		int[] latestGuess = Arrays.stream(strg.getLatestGuess()).limit(4).toArray();
@@ -153,9 +153,7 @@ public class Solver {
 		}
 		return count;
 	}
-//}
 
-//Felix{
 
 
 
@@ -349,4 +347,5 @@ public class Solver {
 		return stream;
 	}
 }
-//}
+
+
