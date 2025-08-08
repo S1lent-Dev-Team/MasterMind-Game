@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
-//Felix code
 public class CLI extends Display {
     Scanner s;
     private HashMap<String,Integer> translator;
@@ -186,3 +185,4 @@ public class CLI extends Display {
 
 
 }
+
